@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<a th:fragment="page_link_product(class, numberPage, size, textLink)" th:class="${class}"
+   th:href="@{/product(
+                               nameFilter=${param.nameFilter},
+                               minPrice=${param.minPrice},
+                               maxPrice=${param.maxPrice},
+                               page=${numberPage},
+                               size=${size},
+                               sortField=${param.sortField},
+                               sortDir=${param.sortDir})}"
+   th:text="${textLink}"></a>
+
+<a th:fragment="page_link_user(class, numberPage, size, textLink)" th:class="${class}"
+   th:href="@{/user(
+                               loginFilter=${param.nameFilter},
+                               page=${numberPage},
+                               size=${size},
+                               sortField=${param.sortField},
+                               sortDir=${param.sortDir})}"
+   th:text="${textLink}"></a>
+
+</html>

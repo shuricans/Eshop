@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: navigation"></nav>
+
+<div class="container">
+    <div class="row py-2">
+
+        <div class="col-12" sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_SUPER_ADMIN')">
+            <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
+        </div>
+
+        <form class="form-inline mt-3" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name-filter" class="sr-only">Name filter:</label>
+                <input th:value="${param.nameFilter}" type="text" class="form-control"
+                       name="nameFilter" id="name-filter" placeholder="Name filter">
+
+                <label for="minPrice-filter" class="sr-only">min price</label>
+                <input th:value="${param.minPrice}" type="number" class="form-control"
+                       name="minPrice" id="minPrice-filter" placeholder="min price" style="margin-left: 1rem">
+
+                <label for="maxPrice-filter" class="sr-only">max price</label>
+                <input th:value="${param.maxPrice}" type="number" class="form-control"
+                       name="maxPrice" id="maxPrice-filter" placeholder="max price" style="margin-left: 1rem">
+
+                <input type="hidden" id="page" name="page" th:value="1">
+                <input type="hidden" id="size" name="size" th:value="${param.size}">
+                <input type="hidden" id="sortField" name="sortField" th:value="${param.sortField}">
+                <input type="hidden" id="sortDir" name="sortDir" th:value="${param.sortDir}">
+
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th th:replace="fragments/sort_header :: sort_header_product('Id', 'id')"></th>
+                    <th th:replace="fragments/sort_header :: sort_header_product('Name', 'name')"></th>
+                    <th th:replace="fragments/sort_header :: sort_header_product('Description', 'description')"></th>
+                    <th th:replace="fragments/sort_header :: sort_header_product('Category', 'category.name')"></th>
+                    <th th:replace="fragments/sort_header :: sort_header_product('Price', 'price')"></th>
+                    <th scope="col" sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_SUPER_ADMIN')">Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:unless="${products.empty}" th:each="product : ${products}">
+                    <th scope="row" th:text="${product.id}">1</th>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.category.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_SUPER_ADMIN')">
+                        <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i
+                                class="fas fa-edit"></i></a>
+                        <form class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr th:if="${products.empty}">
+                    <td colspan="6">No data</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${products.empty}" class="col-12">
+            <div class="row">
+                <div class="col-md-auto">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-left">
+                            <li th:classappend="${products.isFirst} ? 'disabled'" class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_product('page-link', ${products.number}, ${products.size}, 'Previous')"></a>
+                            </li>
+
+                            <li th:each="num : ${#numbers.sequence(1, products.totalPages)}"
+                                th:classappend="${num == products.number + 1} ? 'active'" class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_product('page-link', ${num}, ${products.size}, ${num})"></a>
+                            </li>
+
+                            <li th:classappend="${products.isLast} ? 'disabled'"
+                                class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_product('page-link', ${products.number + 2}, ${products.size}, 'Next')"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            show [[${products.size}]]
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a th:replace="fragments/page_link :: page_link_product('dropdown-item', 1, 5, 5)"></a>
+                            <a th:replace="fragments/page_link :: page_link_product('dropdown-item', 1, 10, 10)"></a>
+                            <a th:replace="fragments/page_link :: page_link_product('dropdown-item', 1, 20, 20)"></a>
+                            <a th:replace="fragments/page_link :: page_link_product('dropdown-item', 1, 40, 40)"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer :: scripts"></th:block>
+
+</body>
+</html>
