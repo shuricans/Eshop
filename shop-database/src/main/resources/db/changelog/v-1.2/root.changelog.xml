@@ -12,31 +12,20 @@
         http://www.liquibase.org/xml/ns/pro
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.3.xsd">
 
-    <preConditions>
-        <dbms type="postgresql"/>
-        <runningAs username="postgres"/>
-    </preConditions>
+    <include file="db/changelog/v-1.2/db.changelog-20220219-132733519.xml"/>
 
-    <changeSet id="0" author="shuricans">
-        <tagDatabase tag="db_init"/>
+    <changeSet id="1645277261251-10" author="shuricans">
+        <sqlFile dbms="postgresql"
+                 path="db/changelog/v-1.2/insert-categories.sql"
+                 stripComments="true"/>
+        <rollback/>
     </changeSet>
 
-    <include file="db/changelog/v-1.0/root.changelog.xml"/>
-
-    <changeSet id="100" author="shuricans">
-        <tagDatabase tag="v-1.0"/>
-    </changeSet>
-
-    <include file="db/changelog/v-1.1/root.changelog.xml"/>
-
-    <changeSet id="105" author="shuricans">
-        <tagDatabase tag="v-1.1"/>
-    </changeSet>
-
-    <include file="db/changelog/v-1.2/root.changelog.xml"/>
-
-    <changeSet id="120" author="shuricans">
-        <tagDatabase tag="v-1.2"/>
+    <changeSet id="1645277261251-11" author="shuricans">
+        <sqlFile dbms="postgresql"
+                 path="db/changelog/v-1.2/insert-products.sql"
+                 stripComments="true"/>
+        <rollback/>
     </changeSet>
 
 </databaseChangeLog>

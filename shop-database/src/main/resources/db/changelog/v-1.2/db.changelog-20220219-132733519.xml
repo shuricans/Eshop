@@ -1,0 +1,43 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="shuricans (generated)" id="1645277261251-3">
+        <createSequence incrementBy="1" sequenceName="categories_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-4">
+        <createSequence incrementBy="1" sequenceName="products_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-5">
+        <createTable tableName="category">
+            <column name="category_id" type="BIGINT" defaultValueSequenceNext="categories_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="categoryPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-6">
+        <createTable tableName="product">
+            <column name="product_id" type="BIGINT" defaultValueSequenceNext="products_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="productPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-7">
+        <addUniqueConstraint columnNames="name" constraintName="UC_CATEGORYNAME_COL" tableName="category"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-8">
+        <addUniqueConstraint columnNames="name" constraintName="UC_PRODUCTNAME_COL" tableName="product"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645277261251-9">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="product" constraintName="FK1mtsbur82frn64de7balymq9s" deferrable="false" initiallyDeferred="false" referencedColumnNames="category_id" referencedTableName="category" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
