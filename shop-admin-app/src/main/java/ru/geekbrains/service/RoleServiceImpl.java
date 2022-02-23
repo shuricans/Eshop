@@ -1,11 +1,11 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.Role;
 import ru.geekbrains.persist.repository.RoleRepository;
-import ru.geekbrains.persist.service.dto.RoleDto;
-import ru.geekbrains.persist.service.dto.RoleMapper;
+import ru.geekbrains.service.dto.RoleDto;
+import ru.geekbrains.service.dto.RoleMapper;
 
 import java.util.List;
 import java.util.Optional;

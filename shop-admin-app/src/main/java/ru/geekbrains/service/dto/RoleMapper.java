@@ -1,4 +1,4 @@
-package ru.geekbrains.persist.service.dto;
+package ru.geekbrains.service.dto;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

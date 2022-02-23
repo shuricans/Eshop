@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.persist.service.CategoryService;
-import ru.geekbrains.persist.service.ProductService;
-import ru.geekbrains.persist.service.dto.ProductDto;
+import ru.geekbrains.service.CategoryService;
+import ru.geekbrains.service.ProductService;
+import ru.geekbrains.service.dto.ProductDto;
 
 
 import javax.validation.Valid;

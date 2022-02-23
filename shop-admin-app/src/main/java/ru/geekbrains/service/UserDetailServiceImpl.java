@@ -1,4 +1,4 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

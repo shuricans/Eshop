@@ -1,6 +1,6 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
-import ru.geekbrains.persist.service.dto.RoleDto;
+import ru.geekbrains.service.dto.RoleDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import ru.geekbrains.persist.service.dto.CategoryDto;
+import ru.geekbrains.service.dto.CategoryDto;
 
 import java.util.List;
 import java.util.Optional;

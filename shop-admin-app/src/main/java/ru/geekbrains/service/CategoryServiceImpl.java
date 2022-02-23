@@ -1,4 +1,4 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.Category;
 import ru.geekbrains.persist.repository.CategoryRepository;
 import ru.geekbrains.persist.specification.CategorySpecification;
-import ru.geekbrains.persist.service.dto.CategoryDto;
-import ru.geekbrains.persist.service.dto.CategoryMapper;
+import ru.geekbrains.service.dto.CategoryDto;
+import ru.geekbrains.service.dto.CategoryMapper;
 
 import java.util.List;
 import java.util.Locale;

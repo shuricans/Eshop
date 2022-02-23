@@ -1,8 +1,8 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import ru.geekbrains.persist.service.dto.ProductDto;
+import ru.geekbrains.service.dto.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.Optional;

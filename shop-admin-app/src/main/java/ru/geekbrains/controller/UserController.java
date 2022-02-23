@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.persist.service.RoleService;
-import ru.geekbrains.persist.service.UserService;
-import ru.geekbrains.persist.service.dto.UserDto;
+import ru.geekbrains.service.RoleService;
+import ru.geekbrains.service.UserService;
+import ru.geekbrains.service.dto.UserDto;
 
 
 import javax.validation.Valid;

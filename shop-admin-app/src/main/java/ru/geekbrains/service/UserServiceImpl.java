@@ -1,4 +1,4 @@
-package ru.geekbrains.persist.service;
+package ru.geekbrains.service;
 
 
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.User;
 import ru.geekbrains.persist.repository.UserRepository;
 import ru.geekbrains.persist.specification.UserSpecification;
-import ru.geekbrains.persist.service.dto.UserDto;
-import ru.geekbrains.persist.service.dto.UserMapper;
+import ru.geekbrains.service.dto.UserDto;
+import ru.geekbrains.service.dto.UserMapper;
 
 import javax.transaction.Transactional;
 import java.util.Locale;

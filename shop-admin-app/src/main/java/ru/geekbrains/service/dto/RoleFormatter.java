@@ -1,9 +1,9 @@
-package ru.geekbrains.persist.service.dto;
+package ru.geekbrains.service.dto;
 
 import lombok.AllArgsConstructor;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.persist.service.RoleService;
+import ru.geekbrains.service.RoleService;
 
 import java.util.Locale;
 
