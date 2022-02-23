@@ -31,13 +31,13 @@ public class Product {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
+    @Column(length = 65535)
     private String description;
 
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
 }
