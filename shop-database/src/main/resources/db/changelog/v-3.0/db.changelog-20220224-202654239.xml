@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="shuricans (generated)" id="1645734422437-6">
+        <createSequence incrementBy="1" sequenceName="pictures_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645734422437-7">
+        <createTable tableName="picture">
+            <column name="picture_id" type="BIGINT" defaultValueSequenceNext="pictures_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="picturePK"/>
+            </column>
+            <column name="content_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="storage_file_name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645734422437-8">
+        <addUniqueConstraint columnNames="storage_file_name" constraintName="UC_PICTURESTORAGE_FILE_NAME_COL"
+                             tableName="picture"/>
+    </changeSet>
+    <changeSet author="shuricans (generated)" id="1645734422437-9">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="picture"
+                                 constraintName="FKcndxgax5tc50b52j989rp7dn6" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="product_id"
+                                 referencedTableName="product" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
