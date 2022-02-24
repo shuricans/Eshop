@@ -40,4 +40,8 @@ public class Product {
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 }
