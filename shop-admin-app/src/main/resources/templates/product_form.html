@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <form th:action="@{/product}" method="post" th:object="${product}">
+            <form th:action="@{/product}" method="post" th:object="${product}" enctype="multipart/form-data">
                 <input type="hidden" id="id" name="id" th:field="*{id}">
 
                 <div class="form-group">
@@ -23,9 +23,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select class="form-control" id="brand" th:field="*{brand.id}" required>
+                        <option th:each="brand : ${brands}"
+                                th:text="${brand.name}"
+                                th:value="${brand.id}"
+                                th:selected="${product.brand.id == brand.id}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="description">Description</label>
-                    <input th:field="*{description}" type="text" class="form-control" id="description"
-                           name="product-description" placeholder="Enter description">
+                    <textarea th:field="*{description}" name="product-description"
+                              placeholder="Enter description" class="form-control"
+                              id="description" rows="8"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -47,8 +59,20 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="newPictures">Add product images</label>
+                    <input type="file" class="form-control" id="newPictures" th:field="*{newPictures}" multiple>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        </div>
+        <div class="container-fluid mt-4">
+            <div class="card-columns" style="column-count: 5">
+                <div class="card" th:each="picId : ${product.pictures}">
+                    <img class="card-img-bottom" th:src="@{/picture/{id}(id = ${picId})}" >
+                </div>
+            </div>
         </div>
     </div>
 </div>
