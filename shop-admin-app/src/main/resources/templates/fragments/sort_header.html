@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th th:fragment="sort_header_product(header, column)" scope="col">[[${header}]]
+    <a th:with="isSorted=${#strings.startsWith(products.sort, column)}"
+       th:href="@{/product(
+                               nameFilter=${param.nameFilter},
+                               minPrice=${param.minPrice},
+                               maxPrice=${param.maxPrice},
+                               page=${param.page},
+                               size=${param.size},
+                               sortField=${column},
+                               sortDir=${isSorted && #strings.endsWith(products.sort, 'ASC') ? 'DESC' : 'ASC'})}">
+        <i class="fa"
+           style="font-size:20px;"
+           th:styleappend="${isSorted} ? 'color:red' : 'color:grey'"
+           th:classappend="${(isSorted && #strings.endsWith(products.sort, 'ASC') ? 'fa-sort-up':'') +
+                             (isSorted && #strings.endsWith(products.sort, 'DESC') ? 'fa-sort-down':'') +
+                             (!isSorted ? 'fa-sort':'')}"
+        >
+        </i>
+    </a>
+</th>
+
+<th th:fragment="sort_header_user(header, column)" scope="col">[[${header}]]
+    <a th:with="isSorted=${#strings.startsWith(users.sort, column)}"
+       th:href="@{/user(
+                               loginFilter=${param.loginFilter},
+                               page=${param.page},
+                               size=${param.size},
+                               sortField=${column},
+                               sortDir=${isSorted && #strings.endsWith(users.sort, 'ASC') ? 'DESC' : 'ASC'})}">
+        <i class="fa"
+           style="font-size:20px;"
+           th:styleappend="${isSorted} ? 'color:red' : 'color:grey'"
+           th:classappend="${(isSorted && #strings.endsWith(users.sort, 'ASC') ? 'fa-sort-up':'') +
+                             (isSorted && #strings.endsWith(users.sort, 'DESC') ? 'fa-sort-down':'') +
+                             (!isSorted ? 'fa-sort':'')}"
+        >
+        </i>
+    </a>
+</th>
+
+</html>

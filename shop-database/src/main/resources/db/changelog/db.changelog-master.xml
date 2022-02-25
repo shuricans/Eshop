@@ -33,4 +33,16 @@
         <tagDatabase tag="v-1.1"/>
     </changeSet>
 
+    <include file="db/changelog/v-1.2/root.changelog.xml"/>
+
+    <changeSet id="120" author="shuricans">
+        <tagDatabase tag="v-1.2"/>
+    </changeSet>
+
+    <include file="db/changelog/v-1.3/root.changelog.xml"/>
+
+    <changeSet id="130" author="shuricans">
+        <tagDatabase tag="v-1.3"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header.html :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/header.html :: navigation">
+</nav>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">
+            <a class="btn btn-primary" th:href="@{/user/new}">Add User</a>
+        </div>
+
+        <form class="form-inline mt-3" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="login-filter" class="sr-only">Login filter:</label>
+                <input th:value="${param.loginFilter}" type="text" class="form-control"
+                       name="loginFilter" id="login-filter" placeholder="Login filter">
+
+                <input type="hidden" id="page" name="page" th:value="1">
+                <input type="hidden" id="size" name="size" th:value="${param.size}">
+                <input type="hidden" id="sortField" name="sortField" th:value="${param.sortField}">
+                <input type="hidden" id="sortDir" name="sortDir" th:value="${param.sortDir}">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th th:replace="fragments/sort_header :: sort_header_user('Id', 'id')"></th>
+                    <th th:replace="fragments/sort_header :: sort_header_user('Login', 'login')"></th>
+                    <th scope="col" sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:unless="${users.empty}" th:each="user : ${users}">
+                    <th scope="row" th:text="${user.id}">1</th>
+                    <td th:text="${user.login}">Alex</td>
+                    <td sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN')">
+                        <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i class="fas fa-edit"></i></a>
+                        <form class="d-inline" th:method="delete" th:action="@{/user/{id}(id = ${user.id})}">
+                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr th:if="${users.empty}">
+                    <td colspan="3">No data</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${users.empty}" class="col-12">
+            <div class="row">
+                <div class="col-md-auto">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-left">
+                            <li th:classappend="${users.isFirst} ? 'disabled'" class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_user('page-link', ${users.number}, ${users.size}, 'Previous')"></a>
+                            </li>
+
+                            <li th:each="num : ${#numbers.sequence(1, users.totalPages)}"
+                                th:classappend="${num == users.number + 1} ? 'active'" class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_user('page-link', ${num}, ${users.size}, ${num})"></a>
+                            </li>
+
+                            <li th:classappend="${users.isLast} ? 'disabled'"
+                                class="page-item">
+                                <a th:replace="fragments/page_link ::
+                                 page_link_user('page-link', ${users.number + 2}, ${users.size}, 'Next')"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            show [[${users.size}]]
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a th:replace="fragments/page_link :: page_link_user('dropdown-item', 1, 5, 5)"></a>
+                            <a th:replace="fragments/page_link :: page_link_user('dropdown-item', 1, 10, 10)"></a>
+                            <a th:replace="fragments/page_link :: page_link_user('dropdown-item', 1, 20, 20)"></a>
+                            <a th:replace="fragments/page_link :: page_link_user('dropdown-item', 1, 40, 40)"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer.html :: scripts">
+</th:block>
+
+</body>
+</html>
