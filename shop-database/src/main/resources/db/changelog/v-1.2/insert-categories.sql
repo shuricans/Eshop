@@ -1,5 +1,11 @@
 insert into category (name)
-values ('Pasta & risotto'),
-       ('Salad'),
-       ('Soup'),
-       ('Pizza');
+values ('GPU'),
+       ('CPU'),
+       ('RAM'),
+       ('Motherboard'),
+       ('Power supply'),
+       ('Case'),
+       ('Fan'),
+       ('SSD'),
+       ('HDD'),
+       ('Accessories');

@@ -25,6 +25,12 @@
                 columnName="description"
                 newDataType="varchar(65535)"
                 tableName="product"/>
+        <rollback>
+            <modifyDataType
+                    columnName="description"
+                    newDataType="varchar(255)"
+                    tableName="product"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

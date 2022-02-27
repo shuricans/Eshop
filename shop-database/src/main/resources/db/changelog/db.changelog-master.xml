@@ -47,7 +47,7 @@
 
     <include file="db/changelog/v-1.4/root.changelog.xml"/>
 
-    <changeSet id="200" author="shuricans">P
+    <changeSet id="200" author="shuricans">
         <tagDatabase tag="v-1.4"/>
     </changeSet>
 

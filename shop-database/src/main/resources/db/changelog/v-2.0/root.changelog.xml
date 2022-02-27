@@ -14,4 +14,18 @@
 
     <include file="db/changelog/v-2.0/db.changelog-20220224-150733122.xml"/>
 
+    <changeSet id="1645715272284-9" author="shuricans">
+        <sqlFile dbms="postgresql"
+                 path="db/changelog/v-2.0/insert-brands.sql"
+                 stripComments="true"/>
+        <rollback/>
+    </changeSet>
+
+    <changeSet id="1645715272284-10" author="shuricans">
+        <sqlFile dbms="postgresql"
+                 path="db/changelog/v-2.0/insert-products.sql"
+                 stripComments="true"/>
+        <rollback/>
+    </changeSet>
+
 </databaseChangeLog>

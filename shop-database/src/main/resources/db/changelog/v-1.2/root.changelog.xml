@@ -21,11 +21,4 @@
         <rollback/>
     </changeSet>
 
-    <changeSet id="1645277261251-11" author="shuricans">
-        <sqlFile dbms="postgresql"
-                 path="db/changelog/v-1.2/insert-products.sql"
-                 stripComments="true"/>
-        <rollback/>
-    </changeSet>
-
 </databaseChangeLog>
