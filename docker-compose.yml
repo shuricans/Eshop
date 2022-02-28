@@ -10,6 +10,9 @@ services:
       spring.datasource.url: "jdbc:postgresql://db:5432/eshop"
       spring.datasource.username: postgres
       spring.datasource.password: 123
+      picture.storage.path: /storage
+    volumes:
+          - ~/geek-eshop/storage:/storage
     networks:
       default:
 
@@ -23,6 +26,9 @@ services:
       spring.datasource.url: "jdbc:postgresql://db:5432/eshop"
       spring.datasource.username: postgres
       spring.datasource.password: 123
+      picture.storage.path: /storage
+    volumes:
+      - ~/geek-eshop/storage:/storage
     networks:
       default:
 
