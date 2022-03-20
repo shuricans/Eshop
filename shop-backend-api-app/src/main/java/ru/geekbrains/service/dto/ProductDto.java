@@ -31,7 +31,5 @@ public class ProductDto {
 
     private BrandDto brand;
 
-    private MultipartFile[] newPictures;
-
     private List<Long> pictures;
 }
