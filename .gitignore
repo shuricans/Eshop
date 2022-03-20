@@ -33,3 +33,4 @@ build/
 .vscode/
 
 storage/
+/shop-database/derby.log
