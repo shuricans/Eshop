@@ -11,7 +11,7 @@ import ru.geekbrains.service.PictureService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/picture")
+@RequestMapping("/v1/picture")
 public class PictureController {
 
     private final PictureService pictureService;
