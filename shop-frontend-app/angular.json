@@ -79,7 +79,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "shop-frontend-app:build:production"
+              "browserTarget": "shop-frontend-app:build:production",
+              "proxyConfig": "proxy.conf.json"
             },
             "development": {
               "browserTarget": "shop-frontend-app:build:development"
