@@ -1,6 +1,7 @@
 package ru.geekbrains.persist.specification;
 
 import org.springframework.data.jpa.domain.Specification;
+import ru.geekbrains.persist.model.Category;
 import ru.geekbrains.persist.model.Product;
 
 import java.math.BigDecimal;
@@ -17,6 +18,10 @@ public final class ProductSpecification {
 
     public static Specification<Product> maxPriceFilter(BigDecimal maxPrice) {
         return (root, query, builder) -> builder.le(root.get("price"), maxPrice);
+    }
+
+    public static Specification<Product> categoryId(Long categoryId) {
+        return (root, query, builder) -> builder.equal(root.get("category"), categoryId);
     }
 
 }

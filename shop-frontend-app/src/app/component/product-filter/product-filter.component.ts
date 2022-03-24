@@ -1,4 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ProductFilterDto} from "../../model/productFilterDto";
+import {Category} from "../../model/category";
 
 @Component({
   selector: 'app-product-filter',
@@ -7,17 +9,33 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class ProductFilterComponent implements OnInit {
 
-  nameFilter: string = '';
+  productFilter: ProductFilterDto = new ProductFilterDto();
 
-  @Output() applyFilterEvent = new EventEmitter<string>();
+  @Output() applyFilterEvent = new EventEmitter<ProductFilterDto>();
 
-  constructor() { }
+  @Input() categories: Category[] = [];
+
+  categoryId: number = -1;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
   applyFilter() {
-    this.applyFilterEvent.emit(this.nameFilter);
+    this.applyFilterEvent.emit(this.productFilter);
   }
 
+  setCategory(categoryId: number) {
+    this.categoryId = categoryId;
+    this.productFilter.categoryId = categoryId;
+    this.applyFilter();
+  }
+
+  clearFilter() {
+    this.productFilter = new ProductFilterDto();
+    this.categoryId = -1;
+    this.applyFilter();
+  }
 }

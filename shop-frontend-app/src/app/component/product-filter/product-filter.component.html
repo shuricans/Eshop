@@ -1,23 +1,30 @@
-<ul class="list-group mb-3">
-  <li class="list-group-item active">Category 1</li>
-  <li class="list-group-item">Category 2</li>
-  <li class="list-group-item">Category 3</li>
-  <li class="list-group-item">Category 4</li>
-  <li class="list-group-item">Category 5</li>
+<label for="categories" class="form-label">Category</label>
+<ul class="list-group mb-3" id="categories">
+
+  <li class="list-group-item list-group-item-action"
+      [class.active]="categoryId == -1"
+      (click)="setCategory(-1)">All</li>
+
+  <li class="list-group-item list-group-item-action"
+      *ngFor="let category of categories"
+      [class.active]="categoryId == category.id"
+      (click)="setCategory(category.id)">{{category.name}}</li>
+
 </ul>
 
 <form (ngSubmit)="applyFilter()">
   <label for="nameFilter" class="form-label">Name</label>
   <div class="input-group mb-3">
-    <input type="text" [(ngModel)]="nameFilter" name="nameFilter" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
+    <input type="text" [(ngModel)]="productFilter.nameFilter" name="nameFilter" class="form-control" id="nameFilter" placeholder="Name" aria-label="Name">
   </div>
 
   <label for="priceFilter" class="form-label">Price</label>
   <div class="input-group mb-3" id="priceFilter">
-    <input type="number" class="form-control" placeholder="From" aria-label="From">
+    <input type="number" [(ngModel)]="productFilter.minPrice" name="minPrice" class="form-control" placeholder="From" aria-label="From">
     <span class="input-group-text">-</span>
-    <input type="number" class="form-control" placeholder="To" aria-label="To">
+    <input type="number" [(ngModel)]="productFilter.maxPrice" name="maxPrice" class="form-control" placeholder="To" aria-label="To">
   </div>
 
-  <button class="btn btn-primary" type="submit">Apply</button>
+  <button class="btn btn-primary" type="submit">Apply</button>&nbsp;
+  <button type="button" class="btn btn-danger" (click)="clearFilter()" >Clear</button>
 </form>

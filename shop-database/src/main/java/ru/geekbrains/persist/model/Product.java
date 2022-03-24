@@ -48,5 +48,6 @@ public class Product {
     private Brand brand;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
+    @ToString.Exclude
     List<Picture> pictures = new ArrayList<>();
 }

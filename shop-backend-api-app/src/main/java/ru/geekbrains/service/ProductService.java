@@ -2,6 +2,7 @@ package ru.geekbrains.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import ru.geekbrains.service.dto.CategoryDto;
 import ru.geekbrains.service.dto.ProductDto;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ public interface ProductService {
             Optional<String> nameFilter,
             Optional<BigDecimal> minPrice,
             Optional<BigDecimal> maxPrice,
+            Optional<Long> categoryId,
             Integer page,
             Integer size,
             String sortField,
