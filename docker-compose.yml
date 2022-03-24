@@ -2,7 +2,7 @@ version: "3.9"
 services:
   backend-app:
     container_name: shop-backend-api-app
-    image: shop-backend-api-app:lesson_3
+    image: shop-backend-api-app:lesson_5
     restart: unless-stopped
     ports:
       - "8081:8081"
@@ -11,6 +11,8 @@ services:
       spring.datasource.username: postgres
       spring.datasource.password: 123
       picture.storage.path: /storage
+      spring.redis.host: redis
+      spring.redis.port: 6379
     volumes:
           - ~/geek-eshop/storage:/storage
     networks:
@@ -18,7 +20,7 @@ services:
 
   admin-app:
     container_name: shop-admin-app
-    image: shop-admin-app:lesson_3
+    image: shop-admin-app:lesson_5
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -34,10 +36,34 @@ services:
 
   frontend-app:
     container_name: shop-frontend-app
-    image: shop-frontend-app:lesson_3
+    image: shop-frontend-app:lesson_5
     restart: unless-stopped
     ports:
       - "3000:80"
+    networks:
+      default:
+
+  redis:
+    container_name: redis
+    image: 'bitnami/redis:latest'
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      default:
+
+  db:
+    container_name: db
+    image: postgres:alpine
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - ~/db-data:/var/lib/postgresql/data
     networks:
       default:
 
