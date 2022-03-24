@@ -14,6 +14,8 @@ public interface CartService {
 
     void removeProduct(ProductDto productDto, String color, String material);
 
+    void removeAll();
+
     List<LineItem> getLineItems();
 
     BigDecimal getSubTotal();

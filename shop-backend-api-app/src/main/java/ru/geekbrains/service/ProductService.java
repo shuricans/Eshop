@@ -2,7 +2,6 @@ package ru.geekbrains.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import ru.geekbrains.service.dto.CategoryDto;
 import ru.geekbrains.service.dto.ProductDto;
 
 import java.math.BigDecimal;

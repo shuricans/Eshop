@@ -3,22 +3,17 @@
 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+        <button type="button"
+                *ngFor="let pic of product?.pictures; let i = index"
+                [class.active]="i === 0"
+                data-bs-target="#carouselExampleIndicators"
+                [attr.data-bs-slide-to]=i
+                [attr.aria-current]="i === 0"
+                [attr.aria-label]="i + 1"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://picsum.photos/400/400?random=1" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://picsum.photos/400/400?random=2" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://picsum.photos/400/400?random=3" class="d-block w-100" alt="...">
+        <div class="carousel-item" *ngFor="let pic of product?.pictures; let i = index" [class.active]="i == 0">
+          <img src="api/v1/picture/{{pic}}" class="d-block w-100" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -35,21 +30,16 @@
   </div>
 
   <div class="col-md-6 col-xs-12">
-    <h2>Product header</h2>
-    <p>Price: $100</p>
+    <h2>{{product?.name}}</h2>
+    <h5>Price: ${{product?.price}}</h5>
     <p>Description</p>
-    <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-      has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-      of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-      the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-      with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-      publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-    <form class="row">
+    <p class="text-muted">{{product?.description}}</p>
+    <form (ngSubmit)="addToCart(product.id)" class="row">
       <div class="col-auto">
         <button type="submit" class="btn btn-primary">Add to card</button>
       </div>
       <div class="col-auto">
-        <input type="number" class="form-control" value="0"/>
+        <input type="number" [(ngModel)]="qty" name="qty" class="form-control"/>
       </div>
     </form>
 

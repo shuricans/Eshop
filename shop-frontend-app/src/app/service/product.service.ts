@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../model/page";
 import {ProductFilterDto} from "../model/productFilterDto";
+import {Product} from "../model/product";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class ProductService {
     }
 
     return this.http.get<Page>('api/v1/product/all', {params});
+  }
+
+  public findById(productId: string): Observable<Product> {
+    return this.http.get<Product>('api/v1/product/' + productId);
   }
 }

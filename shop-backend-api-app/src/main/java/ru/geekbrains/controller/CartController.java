@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Cart", description = "Service to get carts information")
 @AllArgsConstructor
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/v1/cart")
 public class CartController {
 
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
@@ -44,6 +44,11 @@ public class CartController {
     @GetMapping("/all")
     public AllCartDto findAll() {
         return new AllCartDto(cartService.getLineItems(), cartService.getSubTotal());
+    }
+
+    @DeleteMapping("/all")
+    public void removeAll() {
+        cartService.removeAll();
     }
 }
 

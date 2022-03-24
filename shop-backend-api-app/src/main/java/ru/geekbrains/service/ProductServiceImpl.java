@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.Product;
 import ru.geekbrains.persist.repository.ProductRepository;
 import ru.geekbrains.persist.specification.ProductSpecification;
-import ru.geekbrains.service.dto.CategoryDto;
 import ru.geekbrains.service.dto.ProductDto;
 import ru.geekbrains.service.dto.ProductMapper;
 

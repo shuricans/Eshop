@@ -57,6 +57,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void removeAll() {
+        lineItems.clear();
+    }
+
+    @Override
     public List<LineItem> getLineItems() {
         lineItems.forEach(LineItem::setQty);
         return new ArrayList<>(lineItems.keySet());
