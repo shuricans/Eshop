@@ -1,6 +1,7 @@
 <div class="row py-2">
-  <div class="col-md-3 col-xs-12">
-    <app-product-filter [categories]="categories" (applyFilterEvent)="applyFilter($event)"></app-product-filter>
+  <div class="col-md-3 col-xs-12" style="position: relative">
+    <ngx-spinner name="spin-filter" [fullScreen]="false" type="ball-scale-multiple" size="medium"></ngx-spinner>
+    <app-product-filter *ngIf="!categoriesIsLoading" [categories]="categories" (applyFilterEvent)="applyFilter($event)"></app-product-filter>
   </div>
 
   <div class="col-md-9 col-xs-12">
@@ -9,7 +10,7 @@
 
     <app-product-gallery [products]="products"></app-product-gallery>
 
-    <div class="col-md-9 col-xs-12 mt-3">
+    <div class="mt-3">
       <app-product-pagination [page]="page" (goToPageEvent)="goToPage($event)"></app-product-pagination>
     </div>
   </div>
