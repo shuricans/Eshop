@@ -9,6 +9,8 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { ProductFilterComponent } from './component/product-filter/product-filter.component';
 import { ProductPaginationComponent } from './component/product-pagination/product-pagination.component';
 import { ProductGalleryComponent } from './component/product-gallery/product-gallery.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ProductGalleryComponent } from './component/product-gallery/product-gal
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

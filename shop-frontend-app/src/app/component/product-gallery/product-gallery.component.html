@@ -1,51 +1,18 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
 
-  <div class="col">
+  <div class="col" *ngFor="let product of products">
     <div class="card">
-      <img class="card-img-top" src="https://picsum.photos/100/100?random=1" alt="Card image cap">
+      <img class="card-img-top" src="api/v1/picture/{{product.pictures[0]}}" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Product name</h5>
-        <p class="card-text">Short description of product</p>
-        <a href="#" class="btn btn-primary">View</a>
-        <a href="#" class="btn btn-primary">Add to card</a>
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text text-truncate text-truncate--3">{{product.description}}</p>
+        <a routerLink="/product/{{product.id}}" class="btn btn-primary">View</a>&nbsp;
+        <a href="#" class="btn btn-success">Add to card</a>
       </div>
     </div>
   </div>
-
-  <div class="col">
-    <div class="card">
-      <img class="card-img-top" src="https://picsum.photos/100/100?random=2" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Product name</h5>
-        <p class="card-text">Short description of product</p>
-        <a href="#" class="btn btn-primary">View</a>
-        <a href="#" class="btn btn-primary">Add to card</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card">
-      <img class="card-img-top" src="https://picsum.photos/100/100?random=3" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Product name</h5>
-        <p class="card-text">Short description of product</p>
-        <a href="#" class="btn btn-primary">View</a>
-        <a href="#" class="btn btn-primary">Add to card</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card">
-      <img class="card-img-top" src="https://picsum.photos/100/100?random=4" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Product name</h5>
-        <p class="card-text">Short description of product</p>
-        <a href="#" class="btn btn-primary">View</a>
-        <a href="#" class="btn btn-primary">Add to card</a>
-      </div>
-    </div>
+  <div class="col" *ngIf="products.length == 0">
+    <h3>no results...</h3>
   </div>
 
 </div>
