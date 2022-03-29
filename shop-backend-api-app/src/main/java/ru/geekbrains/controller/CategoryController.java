@@ -10,6 +10,7 @@ import ru.geekbrains.service.CategoryService;
 import ru.geekbrains.service.dto.CategoryDto;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Tag(name = "Category", description = "Service to get categories information")
 @AllArgsConstructor
@@ -21,6 +22,11 @@ public class CategoryController {
 
     @GetMapping("/all")
     public List<CategoryDto> findAll() {
+        try {
+            Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return categoryService.findAll();
     }
 }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ProductService} from "../../service/product.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Product} from "../../model/product";
 import {AddLineItemDto} from "../../model/addLineItemDto";
 import {CartService} from "../../service/cart.service";
@@ -17,20 +17,22 @@ export class ProductInfoPageComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private router: Router) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    let productId = this.router.url.split('/')[2];
-    console.log(`productId = ${productId}`);
-    this.productService.findById(productId)
+
+    const routeParams = this.route.snapshot.paramMap;
+    const productIdFromRoute = Number(routeParams.get('productId'));
+
+    this.productService.findById(productIdFromRoute)
       .subscribe({
         next: res => {
-          console.log(`Loading product with id = ${productId}`)
+          console.log(`Loading product with id = ${productIdFromRoute}`)
           this.product = res;
         },
         error: err => {
-          console.error(`Error product with id = ${productId}\n${err}`);
+          console.error(`Error product with id = ${productIdFromRoute}\n${err}`);
         }
       })
   }

@@ -1,10 +1,16 @@
 <div class="row py-2">
-  <div class="col-md-3 col-xs-12" style="position: relative">
-    <ngx-spinner name="spin-filter" [fullScreen]="false" type="ball-scale-multiple" size="medium"></ngx-spinner>
-    <app-product-filter *ngIf="!categoriesIsLoading" [categories]="categories" (applyFilterEvent)="applyFilter($event)"></app-product-filter>
+  <div class="col-md-3 col-xs-12">
+    <div class="spinner-border m-3" role="status" *ngIf="categoriesLoading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <app-product-filter *ngIf="!categoriesLoading" [categories]="categories" (applyFilterEvent)="applyFilter($event)"></app-product-filter>
   </div>
 
   <div class="col-md-9 col-xs-12">
+
+    <div class="spinner-border m-3" role="status" *ngIf="productsLoading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
     <app-product-pagination [page]="page" (goToPageEvent)="goToPage($event)"></app-product-pagination>
 

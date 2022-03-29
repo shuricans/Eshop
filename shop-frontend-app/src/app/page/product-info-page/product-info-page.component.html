@@ -4,16 +4,18 @@
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button"
-                *ngFor="let pic of product?.pictures; let i = index"
-                [class.active]="i === 0"
+                *ngFor="let pic of product?.pictures; let i = index; first as isFirst"
+                [class.active]="isFirst"
                 data-bs-target="#carouselExampleIndicators"
                 [attr.data-bs-slide-to]=i
-                [attr.aria-current]="i === 0"
+                [attr.aria-current]="isFirst"
                 [attr.aria-label]="i + 1"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item" *ngFor="let pic of product?.pictures; let i = index" [class.active]="i == 0">
-          <img src="api/v1/picture/{{pic}}" class="d-block w-100" alt="...">
+        <div class="carousel-item"
+             *ngFor="let picId of product?.pictures; first as isFirst"
+             [class.active]="isFirst">
+          <img src="api/v1/picture/{{picId}}" class="d-block w-100" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

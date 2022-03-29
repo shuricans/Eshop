@@ -6,29 +6,32 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Product name</th>
+        <th></th>
         <th scope="col">Count</th>
         <th scope="col">Price</th>
         <th scope="col">Actions</th>
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lineItem of allCartDto?.lineItems; let i = index">
-          <th scope="row">{{i + 1}}</th>
-          <td><a routerLink="/product/{{lineItem.productId}}">{{lineItem.productDto.name}}</a></td>
-          <td>
-            <input type="number" value="{{lineItem.qty}}"
-                   min="0" oninput="validity.valid||(value='');"
-                   class="form-control w-25"/>
-          </td>
-          <td>${{lineItem.itemTotal}}</td>
-          <td>
-            <a class="btn btn-success me-2" href="#"><i class="fas fa-check-circle"></i></a>
-            <a class="btn btn-danger" (click)="removeItem(lineItem)"><i class="far fa-trash-alt"></i></a>
-          </td>
+
+      <ng-template [ngIf]="allCartDto && !isEmpty" [ngIfElse]="emptyCart">
+        <tr app-cart-item
+            *ngFor="let lineItem of allCartDto.lineItems; let i = index"
+            [index]="i + 1"
+            [lineItem]="lineItem"
+            (updated)="childEventHandler()">
         </tr>
+      </ng-template>
+
+      <ng-template #emptyCart>
+        <tr>
+          <td colspan="6">Your cart is empty.</td>
+        </tr>
+      </ng-template>
+
       </tbody>
     </table>
-    <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+    <button class="btn btn-danger" (click)="clearCart()" [disabled]="isEmpty">Clear Cart</button>
   </div>
 
   <div class="col-md-3 col-xs-12">
@@ -36,7 +39,7 @@
       <div class="card-body">
         <h2>Order summary</h2>
         <p>Total: ${{allCartDto?.subtotal}}</p>
-        <button class="btn btn-primary me-2">Create Order</button>
+        <button class="btn btn-primary me-2" [disabled]="isEmpty">Create Order</button>
       </div>
     </div>
   </div>

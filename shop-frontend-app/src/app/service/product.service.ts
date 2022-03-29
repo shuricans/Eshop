@@ -34,7 +34,7 @@ export class ProductService {
     return this.http.get<Page>('api/v1/product/all', {params});
   }
 
-  public findById(productId: string): Observable<Product> {
+  public findById(productId: number): Observable<Product> {
     return this.http.get<Product>('api/v1/product/' + productId);
   }
 }

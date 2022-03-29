@@ -14,6 +14,8 @@ import {FormsModule} from "@angular/forms";
 import {CartPageComponent} from './page/cart-page/cart-page.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxSpinnerModule} from "ngx-spinner";
+import { ProductCardComponent } from './component/product-card/product-card.component';
+import { CartItemComponent } from './component/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {NgxSpinnerModule} from "ngx-spinner";
     ProductFilterComponent,
     ProductPaginationComponent,
     ProductGalleryComponent,
-    CartPageComponent
+    CartPageComponent,
+    ProductCardComponent,
+    CartItemComponent
   ],
   imports: [
     BrowserModule,

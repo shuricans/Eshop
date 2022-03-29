@@ -1,0 +1,27 @@
+<th scope="row">{{index}}</th>
+<td>
+  <a [routerLink]="['/product', lineItem?.productDto?.id]">
+    {{lineItem?.productDto?.name}}
+  </a>
+</td>
+<td class="spinner-td">
+  <div *ngIf="isUpdating" class="spinner-border spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</td>
+<td>
+  <input type="number" min="1"
+         class="form-control"
+         [(ngModel)]="qty"
+         (ngModelChange)="qtyChangeEvent()"
+         [class.is-invalid]="!isValidQty"
+         [disabled]="isDeleting"/>
+</td>
+<td>${{lineItem?.itemTotal}}</td>
+<td>
+  <a class="btn btn-danger"
+     (click)="deleteLineItem()"
+     [class.disabled]="isDeleting || isUpdating">
+    <i class="fa-regular fa-trash-can"></i>
+  </a>
+</td>

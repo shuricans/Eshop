@@ -1,6 +1,6 @@
-<nav aria-label="..." *ngIf="!page?.empty">
+<nav aria-label="..." *ngIf="page && !page.empty">
   <ul class="pagination" >
-    <li class="page-item" [class.disabled]="page?.first">
+    <li class="page-item" [class.disabled]="page.first">
       <a class="page-link" (click)="goToPage(pageNumber - 1)">Previous</a>
     </li>
 
@@ -8,7 +8,7 @@
       <a class="page-link" (click)="goToPage(num + 1)">{{num + 1}}</a>
     </li>
 
-    <li class="page-item" [class.disabled]="page?.last">
+    <li class="page-item" [class.disabled]="page.last">
       <a class="page-link" (click)="goToPage(pageNumber + 1)">Next</a>
     </li>
   </ul>
