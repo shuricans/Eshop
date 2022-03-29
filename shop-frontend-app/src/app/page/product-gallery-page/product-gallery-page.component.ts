@@ -21,61 +21,74 @@ export class ProductGalleryPageComponent implements OnInit {
 
   productFilter?: ProductFilterDto;
 
+
+  productsLoading: boolean = true;
+  categoriesLoading: boolean = true;
+
   constructor(private productService: ProductService,
               private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
+    console.log('Loading products...');
+    this.productsLoading = true;
     this.productService.findAll()
       .subscribe({
         next: res => {
-          console.log('Loading products...')
+          console.log('Products successfully loaded.');
           this.page = res;
           this.products = res.content;
+          this.productsLoading = false;
         },
         error: err => {
           console.error(`Error loading products ${err}`);
+          this.productsLoading = false;
         }
-      })
-
+      });
+    console.log('Loading categories...');
+    this.categoriesLoading = true;
     this.categoryService.findAll()
       .subscribe({
         next: res => {
-          console.log('Loading categories...')
+          console.log('Categories successfully loaded.');
           this.categories = res;
+          this.categoriesLoading = false;
         },
         error: err => {
           console.error(`Error loading categories ${err}`);
+          this.categoriesLoading = false;
         }
-      })
+      });
   }
 
   goToPage($event: number) {
+    console.log('Loading products...');
     this.productService.findAll(this.productFilter, $event)
       .subscribe({
         next: res => {
-          console.log('Loading products...')
+          console.log('Categories successfully loaded.');
           this.page = res;
           this.products = res.content;
         },
         error: err => {
           console.error(`Error loading products ${err}`);
         }
-      })
+      });
   }
 
   applyFilter($event: ProductFilterDto) {
+    console.log('Loading products...');
     this.productFilter = $event;
     this.productService.findAll(this.productFilter, 1)
       .subscribe({
         next: res => {
-          console.log('Loading products...')
+          console.log('Categories successfully loaded.');
           this.page = res;
           this.products = res.content;
         },
         error: err => {
           console.error(`Error loading products ${err}`);
         }
-      })
+      });
   }
 }

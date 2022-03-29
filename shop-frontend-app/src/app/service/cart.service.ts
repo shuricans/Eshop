@@ -17,12 +17,16 @@ export class CartService {
     return this.http.get<AllCartDto>('api/v1/cart/all');
   }
 
-  public removeItem(lineItem: LineItem): Observable<void> {
-    return this.http.delete<void>('api/v1/cart', {body: lineItem});
+  public removeItem(lineItem: LineItem) {
+    return this.http.delete('api/v1/cart', {body: lineItem});
   }
 
   public addToCart(addLineItemDto: AddLineItemDto): Observable<LineItem[]> {
     return this.http.post<LineItem[]>('api/v1/cart', addLineItemDto);
+  }
+
+  public removeFromCart(addLineItemDto: AddLineItemDto): Observable<LineItem[]> {
+    return this.http.post<LineItem[]>('api/v1/cart/remove', addLineItemDto);
   }
 
   public removeAll(): Observable<void> {

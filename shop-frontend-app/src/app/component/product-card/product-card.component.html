@@ -1,0 +1,30 @@
+<div class="card" *ngIf="product">
+  <img class="card-img-top"
+       [src]="imageToShow"
+       [alt]="product.name"
+       *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <div class="card-img-spinner">
+      <ngx-spinner [name]="spinnerImageLoadingName" [fullScreen]="false" type="ball-scale-multiple" size="medium"></ngx-spinner>
+    </div>
+  </ng-template>
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text text-truncate text-truncate--3">{{product.description}}</p>
+    <h5>${{product.price}}</h5>
+    <a [routerLink]="['/product', product.id]" class="btn btn-primary">View</a>&nbsp;
+    <a (click)="addToCart(product.id)"
+       class="btn btn-success"
+       *ngIf="!isProductAppending; else productAppending">
+      Add to cart
+      <i class="fa-solid fa-cart-plus"></i>
+    </a>
+    <ng-template #productAppending>
+      <button class="btn btn-success" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+        <i class="fa-solid fa-cart-arrow-down"></i>
+      </button>
+    </ng-template>
+  </div>
+</div>

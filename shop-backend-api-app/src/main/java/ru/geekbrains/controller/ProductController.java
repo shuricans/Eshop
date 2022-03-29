@@ -35,6 +35,7 @@ public class ProductController {
         } else {
             sortBy = "id";
         }
+
         return productService.findAll(
                 nameFilter,
                 minPrice,

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../service/cart.service";
 import {AllCartDto} from "../../model/allCartDto";
-import {LineItem} from "../../model/lineItem";
 
 @Component({
   selector: 'app-cart-page',
@@ -11,37 +10,37 @@ import {LineItem} from "../../model/lineItem";
 export class CartPageComponent implements OnInit {
 
   allCartDto?: AllCartDto;
+  isCartDataReady: boolean = false;
+  isEmpty: boolean = true;
+  countChildEvents: number = 0;
 
   constructor(private cartService: CartService) {
   }
 
   ngOnInit(): void {
-    this.reloadCart();
+    this.updateCart();
   }
 
   clearCart() {
     this.cartService.removeAll()
       .subscribe(() => {
-        this.reloadCart()
+        this.updateCart();
       });
   }
 
-  removeItem(lineItem: LineItem) {
-    this.cartService.removeItem(lineItem)
-      .subscribe(() => {
-        this.reloadCart()
-      });
-  }
-
-  private reloadCart() {
+  public updateCart() {
+    console.log('Loading cart-items...');
     this.cartService.findAll()
       .subscribe({
         next: res => {
-          console.log('Loading cart...')
+          console.log('Cart-items successfully loaded.');
           this.allCartDto = res;
+          this.isCartDataReady = true;
+          this.isEmpty = this.allCartDto.subtotal === 0;
         },
         error: err => {
           console.error(`Error loading cart ${err}`);
+          this.isCartDataReady = true;
         }
       });
   }

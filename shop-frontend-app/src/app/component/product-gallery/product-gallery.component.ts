@@ -18,11 +18,11 @@ export class ProductGalleryComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addToCart(productId: number) {
+  public addToCart(productId: number) {
     let lineItemDto = new AddLineItemDto(productId, 1, '', '');
     this.cartService.addToCart(lineItemDto)
       .subscribe({
-        next: res => {
+        next: () => {
           console.log(`Adding product with id = ${productId} to cart.`)
         },
         error: err => {

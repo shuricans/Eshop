@@ -4,16 +4,22 @@
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button"
-                *ngFor="let pic of product?.pictures; let i = index"
-                [class.active]="i === 0"
+                *ngFor="let pic of product?.pictures; let i = index; first as isFirst"
+                [class.active]="isFirst"
                 data-bs-target="#carouselExampleIndicators"
                 [attr.data-bs-slide-to]=i
-                [attr.aria-current]="i === 0"
+                [attr.aria-current]="isFirst"
                 [attr.aria-label]="i + 1"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item" *ngFor="let pic of product?.pictures; let i = index" [class.active]="i == 0">
-          <img src="api/v1/picture/{{pic}}" class="d-block w-100" alt="...">
+        <div class="carousel-item"
+             app-carousel-picture
+             *ngFor="let picId of product?.pictures; first as isFirst"
+             [class.active]="isFirst"
+             [picId]="picId"
+             [picAlt]="product.name"
+             [isAllImagesReady]="isAllImagesReady"
+             (ready)="pictureReadyEvent()">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -27,19 +33,42 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+
+    <div class="card-img-spinner" *ngIf="!isAllImagesReady">
+      <ngx-spinner name="spinnerImagesLoading" [fullScreen]="false" type="ball-scale-multiple" size="medium"></ngx-spinner>
+    </div>
+
   </div>
 
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-6 col-xs-12" *ngIf="isProductDataReady">
     <h2>{{product?.name}}</h2>
     <h5>Price: ${{product?.price}}</h5>
     <p>Description</p>
     <p class="text-muted">{{product?.description}}</p>
     <form (ngSubmit)="addToCart(product.id)" class="row">
       <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Add to card</button>
+        <button type="submit"
+                class="btn btn-success"
+                *ngIf="!isProductAppending; else productAppending"
+                [disabled]="!isValidQty">
+          Add to cart
+          <i class="fa-solid fa-cart-plus"></i>
+        </button>
+        <ng-template #productAppending>
+          <button class="btn btn-success" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+            <i class="fa-solid fa-cart-arrow-down"></i>
+          </button>
+        </ng-template>
       </div>
       <div class="col-auto">
-        <input type="number" [(ngModel)]="qty" name="qty" class="form-control"/>
+        <input type="number" min="1"
+               [(ngModel)]="qty"
+               name="qty"
+               class="form-control"
+               [class.is-invalid]="!isValidQty"
+               (ngModelChange)="updateQtyEvent()"/>
       </div>
     </form>
 
