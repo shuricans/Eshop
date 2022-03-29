@@ -13,9 +13,13 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item"
+             app-carousel-picture
              *ngFor="let picId of product?.pictures; first as isFirst"
-             [class.active]="isFirst">
-          <img src="api/v1/picture/{{picId}}" class="d-block w-100" alt="...">
+             [class.active]="isFirst"
+             [picId]="picId"
+             [picAlt]="product.name"
+             [isAllImagesReady]="isAllImagesReady"
+             (ready)="pictureReadyEvent()">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -29,19 +33,42 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+
+    <div class="card-img-spinner" *ngIf="!isAllImagesReady">
+      <ngx-spinner name="spinnerImagesLoading" [fullScreen]="false" type="ball-scale-multiple" size="medium"></ngx-spinner>
+    </div>
+
   </div>
 
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-6 col-xs-12" *ngIf="isProductDataReady">
     <h2>{{product?.name}}</h2>
     <h5>Price: ${{product?.price}}</h5>
     <p>Description</p>
     <p class="text-muted">{{product?.description}}</p>
     <form (ngSubmit)="addToCart(product.id)" class="row">
       <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Add to cart</button>
+        <button type="submit"
+                class="btn btn-success"
+                *ngIf="!isProductAppending; else productAppending"
+                [disabled]="!isValidQty">
+          Add to cart
+          <i class="fa-solid fa-cart-plus"></i>
+        </button>
+        <ng-template #productAppending>
+          <button class="btn btn-success" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+            <i class="fa-solid fa-cart-arrow-down"></i>
+          </button>
+        </ng-template>
       </div>
       <div class="col-auto">
-        <input type="number" [(ngModel)]="qty" name="qty" class="form-control"/>
+        <input type="number" min="1"
+               [(ngModel)]="qty"
+               name="qty"
+               class="form-control"
+               [class.is-invalid]="!isValidQty"
+               (ngModelChange)="updateQtyEvent()"/>
       </div>
     </form>
 

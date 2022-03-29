@@ -10,7 +10,7 @@ import {AllCartDto} from "../../model/allCartDto";
 export class CartPageComponent implements OnInit {
 
   allCartDto?: AllCartDto;
-  isDataLoading!: boolean;
+  isCartDataReady: boolean = false;
   isEmpty: boolean = true;
   countChildEvents: number = 0;
 
@@ -29,19 +29,18 @@ export class CartPageComponent implements OnInit {
   }
 
   public updateCart() {
-    // this.isDataLoading = true;
     console.log('Loading cart-items...');
     this.cartService.findAll()
       .subscribe({
         next: res => {
           console.log('Cart-items successfully loaded.');
           this.allCartDto = res;
-          this.isDataLoading = false;
+          this.isCartDataReady = true;
           this.isEmpty = this.allCartDto.subtotal === 0;
         },
         error: err => {
           console.error(`Error loading cart ${err}`);
-          this.isDataLoading = false;
+          this.isCartDataReady = true;
         }
       });
   }

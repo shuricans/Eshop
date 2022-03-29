@@ -1,6 +1,6 @@
 <div class="row py-2">
 
-  <div class="col-md-9 col-xs-12 mb-3">
+  <div class="col-md-9 col-xs-12 mb-3" *ngIf="isCartDataReady">
     <table class="table table-striped">
       <thead>
       <tr>
@@ -33,7 +33,7 @@
     <button class="btn btn-danger" (click)="clearCart()" [disabled]="isEmpty">Clear Cart</button>
   </div>
 
-  <div class="col-md-3 col-xs-12">
+  <div class="col-md-3 col-xs-12" *ngIf="isCartDataReady">
     <div class="card">
       <div class="card-body">
         <h2>Order summary</h2>

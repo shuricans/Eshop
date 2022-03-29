@@ -30,7 +30,9 @@ export class ProductPaginationComponent implements OnInit, OnChanges {
   }
 
   goToPage(page: number) {
-    this.goToPageEvent.emit(page);
+    if (page != this.pageNumber) {
+      this.goToPageEvent.emit(page);
+    }
   }
 
 }
