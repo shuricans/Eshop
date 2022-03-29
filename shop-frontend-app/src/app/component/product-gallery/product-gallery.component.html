@@ -6,8 +6,9 @@
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text text-truncate text-truncate--3">{{product.description}}</p>
+        <h5>${{product.price}}</h5>
         <a routerLink="/product/{{product.id}}" class="btn btn-primary">View</a>&nbsp;
-        <a href="#" class="btn btn-success">Add to card</a>
+        <a (click)="addToCart(product.id)" class="btn btn-success">Add to card</a>
       </div>
     </div>
   </div>

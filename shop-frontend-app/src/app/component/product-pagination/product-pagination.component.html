@@ -4,7 +4,7 @@
       <a class="page-link" (click)="goToPage(pageNumber - 1)">Previous</a>
     </li>
 
-    <li class="page-item active" aria-current="page" *ngFor="let num of numbers" [class.active]="pageNumber == num + 1">
+    <li class="page-item" aria-current="page" *ngFor="let num of numbers" [class.active]="pageNumber == num + 1">
       <a class="page-link" (click)="goToPage(num + 1)">{{num + 1}}</a>
     </li>
 

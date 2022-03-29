@@ -13,6 +13,7 @@ public interface ProductService {
             Optional<String> nameFilter,
             Optional<BigDecimal> minPrice,
             Optional<BigDecimal> maxPrice,
+            Optional<Long> categoryId,
             Integer page,
             Integer size,
             String sortField,

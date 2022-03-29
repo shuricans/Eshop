@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
             Optional<String> nameFilter,
             Optional<BigDecimal> minPrice,
             Optional<BigDecimal> maxPrice,
+            Optional<Long> categoryId,
             Integer page,
             Integer size,
             String sortField,
@@ -45,6 +46,10 @@ public class ProductServiceImpl implements ProductService {
 
         if (maxPrice.isPresent()) {
             spec = combineSpec(spec, ProductSpecification.maxPriceFilter(maxPrice.get()));
+        }
+
+        if (categoryId.isPresent()) {
+            spec = combineSpec(spec, ProductSpecification.categoryId(categoryId.get()));
         }
 
         spec = combineSpec(spec, Specification.where(null));

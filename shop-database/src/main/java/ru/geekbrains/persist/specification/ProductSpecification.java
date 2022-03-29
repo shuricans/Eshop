@@ -19,4 +19,8 @@ public final class ProductSpecification {
         return (root, query, builder) -> builder.le(root.get("price"), maxPrice);
     }
 
+    public static Specification<Product> categoryId(Long categoryId) {
+        return (root, query, builder) -> builder.equal(root.get("category"), categoryId);
+    }
+
 }
