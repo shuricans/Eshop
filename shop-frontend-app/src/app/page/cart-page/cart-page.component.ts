@@ -45,15 +45,4 @@ export class CartPageComponent implements OnInit {
         }
       });
   }
-
-  public childEventHandler() {
-    let lastCount = ++this.countChildEvents;
-    console.log(`countChildEvents = ${this.countChildEvents}`);
-    setTimeout(() => {
-      if (lastCount === this.countChildEvents) {
-        this.countChildEvents = 0;
-        this.updateCart();
-      }
-    }, 1500);
-  }
 }

@@ -1,9 +1,15 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
 
-  <div app-product-card
-       class="col"
-       *ngFor="let product of products"
-       [product]=product>
-  </div>
+  <ng-template [ngIf]="products.length > 0" [ngIfElse]="emptyResultSet">
+    <div app-product-card
+         class="col"
+         *ngFor="let product of products"
+         [product]=product>
+    </div>
+  </ng-template>
+
+  <ng-template #emptyResultSet>
+    <h4>No results.<br>Try another filter settings.</h4>
+  </ng-template>
 
 </div>

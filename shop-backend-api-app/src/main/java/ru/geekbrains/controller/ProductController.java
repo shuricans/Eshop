@@ -10,7 +10,6 @@ import ru.geekbrains.service.dto.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Tag(name = "Product", description = "Service to get product information")
 @AllArgsConstructor
@@ -35,12 +34,6 @@ public class ProductController {
             sortBy = sortField.get();
         } else {
             sortBy = "id";
-        }
-
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         return productService.findAll(

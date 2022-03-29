@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.service.PictureService;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("/v1/picture")
@@ -20,11 +18,6 @@ public class PictureController {
 
     @GetMapping("/{pictureId}")
     public ResponseEntity<byte[]> downloadPicture(@PathVariable("pictureId") long pictureId) {
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return pictureService.getPictureDataById(pictureId)
                 .map(pic -> ResponseEntity
                         .ok()

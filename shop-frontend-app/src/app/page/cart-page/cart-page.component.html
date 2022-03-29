@@ -6,7 +6,6 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Product name</th>
-        <th></th>
         <th scope="col">Count</th>
         <th scope="col">Price</th>
         <th scope="col">Actions</th>
@@ -19,13 +18,13 @@
             *ngFor="let lineItem of allCartDto.lineItems; let i = index"
             [index]="i + 1"
             [lineItem]="lineItem"
-            (updated)="childEventHandler()">
+            (updated)="updateCart()">
         </tr>
       </ng-template>
 
       <ng-template #emptyCart>
         <tr>
-          <td colspan="6">Your cart is empty.</td>
+          <td colspan="5">Your cart is empty.</td>
         </tr>
       </ng-template>
 

@@ -16,11 +16,9 @@ export class CartItemComponent implements OnInit {
   private _index?: number;
 
   private initQty: number = 0;
-  private prevQty: number = 0;
   isValidQty: boolean = true;
-  qty: number = 0;
+  qty: number = 1;
   isUpdating: boolean = false;
-  isDeleting: boolean = false;
 
   constructor(private cartService: CartService) {
   }
@@ -31,9 +29,8 @@ export class CartItemComponent implements OnInit {
   @Input()
   set lineItem(value: LineItem | undefined) {
     this._lineItem = value;
-    this.qty = value ? value.qty : 0;
+    this.qty = value ? value.qty : 1;
     this.initQty = this.qty;
-    this.prevQty = this.qty;
   }
 
   get lineItem(): LineItem | undefined {
@@ -50,8 +47,8 @@ export class CartItemComponent implements OnInit {
   }
 
   deleteLineItem() {
+    console.log('deleteLineItem');
     this.isUpdating = true;
-    this.isDeleting = true;
     if (this._lineItem) {
       this.cartService.removeItem(this._lineItem)
         .subscribe({
@@ -62,27 +59,6 @@ export class CartItemComponent implements OnInit {
             console.error('Unsuccessful removal');
           }
         });
-    }
-  }
-
-  qtyChangeEvent() {
-    let newQty = this.qty;
-    this.isValidQty = newQty != null && Number.isInteger(newQty) && newQty > 0;
-    if (this.isValidQty) {
-      setTimeout(() => {
-        if (newQty === this.qty) {
-          this.isUpdating = true;
-          this.prevQty = newQty;
-        }
-      }, 300);
-      setTimeout(() => {
-        if (newQty === this.prevQty && newQty !== this.initQty) {
-          console.log(`Call API with new value = ${newQty}`);
-          this.updateQty(newQty);
-        } else {
-          this.isUpdating = false;
-        }
-      }, 1500);
     }
   }
 
@@ -120,4 +96,19 @@ export class CartItemComponent implements OnInit {
     }
   }
 
+  focusOut() {
+    // get new quantity value
+    let newQty = this.qty;
+    // is valid?
+    this.isValidQty = newQty != null && Number.isInteger(newQty) && newQty > 0;
+    // if is valid & not equals initial value
+    if (this.isValidQty && newQty !== this.initQty) {
+      this.updateQty(newQty);
+    }
+    this.isUpdating = false;
+  }
+
+  focusIn() {
+    this.isUpdating = true;
+  }
 }
