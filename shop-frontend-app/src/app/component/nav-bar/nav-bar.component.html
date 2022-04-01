@@ -19,9 +19,21 @@
              [attr.aria-current]="isCartPage ? 'page' : undefined"
              routerLink="/cart">Cart</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="isOrderPage"
+             [attr.aria-current]="isOrderPage ? 'page' : undefined"
+             routerLink="/order">Order</a>
+        </li>
       </ul>
       <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit">Login</button>
+        <a class="btn btn-outline-success"
+           routerLink="/login"
+           role="button"
+           *ngIf="!authenticated() else notAuthenticated">Login</a>
+        <ng-template #notAuthenticated>
+          <a class="btn btn-outline-primary" (click)="logout()" role="button">Logout</a>
+        </ng-template>
       </form>
     </div>
   </div>

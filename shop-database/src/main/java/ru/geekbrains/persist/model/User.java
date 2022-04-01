@@ -38,6 +38,13 @@ public class User {
     private String email;
 
     @ToString.Exclude
+    @OneToOne(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL)
+    private Customer customer;
+
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             name = "users_roles",

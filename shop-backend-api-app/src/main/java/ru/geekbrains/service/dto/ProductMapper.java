@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class, BrandMapper.class})
 public interface ProductMapper {
 
+    @Mapping(target = "pictures", ignore = true)
+    Product toProduct(ProductDto productDto);
+
     @InheritInverseConfiguration
     @Mapping(source = "pictures", target = "pictures", qualifiedBy = PicturesToIds.class)
     ProductDto fromProduct(Product product);

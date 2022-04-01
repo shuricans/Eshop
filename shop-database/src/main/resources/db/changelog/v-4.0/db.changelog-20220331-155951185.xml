@@ -1,0 +1,94 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet author="shuricans (generated)" id="1648742402442-7">
+        <createSequence incrementBy="1" sequenceName="customers_sequence" startValue="1"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-8">
+        <createSequence incrementBy="1" sequenceName="order_line_items_sequence" startValue="1"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-9">
+        <createSequence incrementBy="1" sequenceName="orders_sequence" startValue="1"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-10">
+        <createTable tableName="customer">
+            <column name="customer_id" type="BIGINT" defaultValueSequenceNext="customers_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="customerPK"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-11">
+        <createTable tableName="order_line_item">
+            <column name="order_line_item_id" type="BIGINT" defaultValueSequenceNext="order_line_items_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="order_line_itemPK"/>
+            </column>
+            <column name="color" type="VARCHAR(255)"/>
+            <column name="material" type="VARCHAR(255)"/>
+            <column name="price" type="numeric(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qty" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-12">
+        <createTable tableName="ordr">
+            <column name="order_id" type="BIGINT" defaultValueSequenceNext="orders_sequence">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ordrPK"/>
+            </column>
+            <column name="date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-13">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="ordr"
+                                 constraintName="FK6ijwpajpj2jq2rntug0jpxnts" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="customer_id"
+                                 referencedTableName="customer" validate="true"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-14">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="order_line_item"
+                                 constraintName="FK9ju2t8oi6c26mtfhltwpwhfpv" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="product_id"
+                                 referencedTableName="product" validate="true"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-15">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="order_line_item"
+                                 constraintName="FKniyknyo47o0gam9kg2ywjfk96" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="order_id" referencedTableName="ordr"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet author="shuricans (generated)" id="1648742402442-16">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="customer"
+                                 constraintName="FKra1cb3fu95r1a0m7aksow0nk4" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="user_id" referencedTableName="users"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
