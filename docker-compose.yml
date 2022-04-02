@@ -2,7 +2,7 @@ version: "3.9"
 services:
   backend-app:
     container_name: shop-backend-api-app
-    image: shop-backend-api-app:lesson_5
+    image: shop-backend-api-app:lesson_7
     restart: unless-stopped
     ports:
       - "8081:8081"
@@ -20,7 +20,7 @@ services:
 
   admin-app:
     container_name: shop-admin-app
-    image: shop-admin-app:lesson_5
+    image: shop-admin-app:lesson_7
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -36,7 +36,7 @@ services:
 
   frontend-app:
     container_name: shop-frontend-app
-    image: shop-frontend-app:lesson_5
+    image: shop-frontend-app:lesson_7
     restart: unless-stopped
     ports:
       - "3000:80"

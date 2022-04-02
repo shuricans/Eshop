@@ -1,0 +1,9 @@
+<th scope="row">{{index}}</th>
+<td>
+  <ng-container *ngIf="(product | async) as p">
+    <a [routerLink]="['/product', orderLineItem?.productId]">{{p.name}}</a>
+  </ng-container>
+
+</td>
+<td>{{orderLineItem?.qty}}</td>
+<td>${{orderLineItem?.price}}</td>

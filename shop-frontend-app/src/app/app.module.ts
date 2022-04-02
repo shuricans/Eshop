@@ -20,6 +20,8 @@ import { CarouselPictureComponent } from './component/carousel-picture/carousel-
 import { LoginPageComponent } from './page/login-page/login-page.component';
 import { OrderPageComponent } from './page/order-page/order-page.component';
 import {UnauthorizedInterceptor} from "./helper/unauthorized-interceptor";
+import { OrderInfoPageComponent } from './page/order-info-page/order-info-page.component';
+import { OrderLineItemComponent } from './component/order-line-item/order-line-item.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {UnauthorizedInterceptor} from "./helper/unauthorized-interceptor";
     CartItemComponent,
     CarouselPictureComponent,
     LoginPageComponent,
-    OrderPageComponent
+    OrderPageComponent,
+    OrderInfoPageComponent,
+    OrderLineItemComponent
   ],
   imports: [
     BrowserModule,

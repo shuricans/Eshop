@@ -2,6 +2,7 @@
   <img class="card-img-top"
        [src]="imageToShow"
        [alt]="product.name"
+       [routerLink]="['/product', product.id]"
        *ngIf="!isImageLoading; else noImageFound">
   <ng-template #noImageFound>
     <div class="card-img-spinner">
@@ -9,9 +10,11 @@
     </div>
   </ng-template>
   <div class="card-body">
-    <h5 class="card-title">{{product.name}}</h5>
-    <p class="card-text text-truncate text-truncate--3">{{product.description}}</p>
-    <h5>${{product.price}}</h5>
+    <div [routerLink]="['/product', product.id]">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text text-truncate text-truncate--3">{{product.description}}</p>
+      <h5>${{product.price}}</h5>
+    </div>
     <a [routerLink]="['/product', product.id]" class="btn btn-primary">View</a>&nbsp;
     <a (click)="addToCart(product.id)"
        class="btn btn-success"
