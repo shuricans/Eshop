@@ -1,5 +1,6 @@
 package ru.geekbrains.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class BrandDto {
 
     private Long id;

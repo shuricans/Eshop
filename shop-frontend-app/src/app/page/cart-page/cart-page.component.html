@@ -38,7 +38,10 @@
       <div class="card-body">
         <h2>Order summary</h2>
         <p>Total: ${{allCartDto?.subtotal}}</p>
-        <button class="btn btn-primary me-2" [disabled]="isEmpty">Create Order</button>
+        <button class="btn btn-primary me-2"
+                [disabled]="isEmpty"
+                (click)="createOrder()">Create Order
+        </button>
       </div>
     </div>
   </div>

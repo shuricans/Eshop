@@ -1,29 +1,26 @@
 package ru.geekbrains.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class ProductDto {
 
     private Long id;
 
-    @NotBlank
     private String name;
 
     private String description;
 
-    @PositiveOrZero
-    @NotNull(message = "please set the price")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+    @JsonSubTypes({@JsonSubTypes.Type(name = "BIG_DECIMAL", value = BigDecimal.class)})
     private BigDecimal price;
 
     private CategoryDto category;
