@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+
+  redis:
+    container_name: redis
+    image: 'bitnami/redis:latest'
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      default:
+
+  picture-service-app:
+    container_name: shop-picture-service-api-app
+    image: shop-picture-service-api-app:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+      spring.cloud.config.uri: http://spring-cloud-config:8888
+    volumes:
+      - ~/geek-eshop/storage:/storage
+    networks:
+      default:
+
+  backend-app:
+    container_name: shop-backend-api-app
+    image: shop-backend-api-app:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      spring.redis.host: redis
+      spring.redis.port: 6379
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+      spring.cloud.config.uri: http://spring-cloud-config:8888
+    networks:
+      default:
+
+  frontend-app:
+    container_name: shop-frontend-app
+    image: shop-frontend-app:lesson_8
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    networks:
+      default:
+
+networks:
+  default:
+    external:
+      name: db
