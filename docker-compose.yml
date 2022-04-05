@@ -1,8 +1,59 @@
 version: "3.9"
 services:
+  cloud-config-app:
+    container_name: spring-cloud-config
+    image: spring-cloud-config:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    environment:
+      spring.cloud.config.server.native.search-locations: /config-repo
+    volumes:
+      - ~/geek-eshop/lesson_8/config-repo:/config-repo
+    networks:
+      default:
+
+  eureka-app:
+    container_name: spring-eureka
+    image: spring-eureka:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    networks:
+      default:
+
+  cloud-gateway:
+    container_name: spring-cloud-gateway
+    image: spring-cloud-gateway:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+    networks:
+      default:
+
+  picture-service-app:
+    container_name: shop-picture-service-api-app
+    image: shop-picture-service-api-app:lesson_8
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      spring.datasource.url: "jdbc:postgresql://db:5432/eshop"
+      spring.datasource.username: postgres
+      spring.datasource.password: 123
+      picture.storage.path: /storage
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+      spring.cloud.config.uri: http://spring-cloud-config:8888
+    volumes:
+      - ~/geek-eshop/storage:/storage
+    networks:
+      default:
+
   backend-app:
     container_name: shop-backend-api-app
-    image: shop-backend-api-app:lesson_7
+    image: shop-backend-api-app:lesson_8
     restart: unless-stopped
     ports:
       - "8081:8081"
@@ -10,17 +61,16 @@ services:
       spring.datasource.url: "jdbc:postgresql://db:5432/eshop"
       spring.datasource.username: postgres
       spring.datasource.password: 123
-      picture.storage.path: /storage
       spring.redis.host: redis
       spring.redis.port: 6379
-    volumes:
-          - ~/geek-eshop/storage:/storage
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+      spring.cloud.config.uri: http://spring-cloud-config:8888
     networks:
       default:
 
   admin-app:
     container_name: shop-admin-app
-    image: shop-admin-app:lesson_7
+    image: shop-admin-app:lesson_8
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -29,6 +79,8 @@ services:
       spring.datasource.username: postgres
       spring.datasource.password: 123
       picture.storage.path: /storage
+      eureka.client.serviceUrl.defaultZone: http://spring-eureka:8761/eureka/
+      spring.cloud.config.uri: http://spring-cloud-config:8888
     volumes:
       - ~/geek-eshop/storage:/storage
     networks:
@@ -36,7 +88,7 @@ services:
 
   frontend-app:
     container_name: shop-frontend-app
-    image: shop-frontend-app:lesson_7
+    image: shop-frontend-app:lesson_8
     restart: unless-stopped
     ports:
       - "3000:80"

@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 
-ARG JAR_FILE=./shop-backend-api-app-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=./spring-cloud-gateway-0.0.1-SNAPSHOT.jar
 
 # cd /opt/app
 WORKDIR /opt/app
