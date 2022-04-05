@@ -30,7 +30,7 @@
 
       </tbody>
     </table>
-    <button class="btn btn-danger" (click)="clearCart()" [disabled]="isEmpty">Clear Cart</button>
+    <button class="btn btn-danger" (click)="clearCart()" *ngIf="!isEmpty">Clear Cart</button>
   </div>
 
   <div class="col-md-3 col-xs-12" *ngIf="isCartDataReady">
@@ -39,7 +39,7 @@
         <h2>Order summary</h2>
         <p>Total: ${{allCartDto?.subtotal}}</p>
         <button class="btn btn-primary me-2"
-                [disabled]="isEmpty"
+                *ngIf="!isEmpty"
                 (click)="createOrder()">Create Order
         </button>
       </div>

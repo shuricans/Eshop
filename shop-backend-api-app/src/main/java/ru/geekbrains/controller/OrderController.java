@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.service.OrderService;
 import ru.geekbrains.service.dto.OrderDto;
 
@@ -30,5 +27,16 @@ public class OrderController {
     @GetMapping("/all")
     public List<OrderDto> findAll(Authentication auth) {
         return orderService.findOrdersByCustomerLogin(auth.getName());
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto findById(@PathVariable("id") Long id, Authentication auth) {
+        return orderService.findOrderByOrderIdAndCustomerLogin(id, auth.getName())
+                .orElseThrow(RuntimeException::new);
+    }
+
+    @GetMapping("/cancel/{id}")
+    public void cancelOrder(@PathVariable("id") Long id, Authentication auth) {
+        orderService.cancelOrderByIdAndCustomerLogin(id, auth.getName());
     }
 }

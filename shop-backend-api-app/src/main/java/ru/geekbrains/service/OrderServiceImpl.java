@@ -13,6 +13,7 @@ import ru.geekbrains.service.dto.*;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -45,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
                 new Order(
                         null,
                         LocalDateTime.now(),
+                        cartService.getSubTotal(),
                         Order.OrderStatus.CREATED,
                         customerMapper.toCustomer(customerDto),
                         null
@@ -55,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(li -> new OrderLineItem(
                         null,
                         li.getQty(),
-                        li.getProductDto().getPrice(),
+                        li.getItemTotal(),
                         li.getColor(),
                         li.getMaterial(),
                         findProductById(li.getProductId()),
@@ -68,11 +70,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void cancelOrderByIdAndCustomerLogin(long id, String login) {
+        orderRepository.findByIdAndLogin(id, login).ifPresent(order -> {
+            order.setStatus(Order.OrderStatus.CANCELED);
+            orderRepository.save(order);
+        });
+    }
+
+    @Override
     public List<OrderDto> findOrdersByCustomerLogin(String login) {
         return orderRepository.findAllByLogin(login)
                 .stream()
                 .map(orderMapper::fromOrder)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<OrderDto> findOrderByOrderIdAndCustomerLogin(long id, String login) {
+        return orderRepository.findByIdAndLogin(id, login).map(orderMapper::fromOrder);
     }
 
     private Product findProductById(Long id) {

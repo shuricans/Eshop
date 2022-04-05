@@ -3,6 +3,7 @@ package ru.geekbrains.persist.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class Order {
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime date;
+
+    @Column(nullable = false)
+    private BigDecimal price;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

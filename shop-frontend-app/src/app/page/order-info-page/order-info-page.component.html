@@ -1,0 +1,45 @@
+<div class="row py-2">
+
+  <div class="col-md-9 col-xs-12 mb-3" *ngIf="idDataReady && order">
+    <h3>Order #{{order.id}} from {{dateFormat(order.date)}}</h3>
+    <h4>Status:
+      <div class="alert p-1"
+           [ngClass]="setAlertClass(order.status)"
+           role="alert">
+        {{order.status}}
+      </div>
+    </h4>
+    <br>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product name</th>
+        <th scope="col">Count</th>
+        <th scope="col">Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr app-order-line-item
+          *ngFor="let item of order.orderLineItems; let i = index"
+          [index]="i + 1"
+          [orderLineItem]="item">
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-3 col-xs-12" *ngIf="idDataReady">
+    <div class="card">
+      <div class="card-body">
+        <h2>Order summary</h2>
+        <p>Total: ${{order?.price}}</p>
+        <button class="btn btn-danger me-2"
+                (click)="cancelOrder()"
+                *ngIf="order.status !== 'CANCELED'">Cancel Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
