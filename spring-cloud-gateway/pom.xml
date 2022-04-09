@@ -15,6 +15,11 @@
     <name>spring-cloud-gateway</name>
     <description>spring-cloud-gateway</description>
 
+    <properties>
+        <app.image.name>spring-cloud-gateway</app.image.name>
+        <app.image.tag>lesson_9</app.image.tag>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -38,6 +43,39 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <from>
+                        <image>adoptopenjdk/openjdk11:alpine-jre</image>
+                    </from>
+                    <to>
+                        <image>shuricans/${app.image.name}:${app.image.tag}</image>
+                    </to>
+                    <container>
+                        <ports>
+                            <port>8080</port>
+                        </ports>
+                        <format>OCI</format>
+                        <entrypoint>
+                            /entrypoint.sh
+                        </entrypoint>
+                    </container>
+                    <extraDirectories>
+                        <permissions>
+                            <permission>
+                                <file>/entrypoint.sh</file>
+                                <mode>755</mode>
+                            </permission>
+                            <permission>
+                                <file>/wait-for-service.sh</file>
+                                <mode>755</mode>
+                            </permission>
+                        </permissions>
+                    </extraDirectories>
+                </configuration>
             </plugin>
         </plugins>
     </build>

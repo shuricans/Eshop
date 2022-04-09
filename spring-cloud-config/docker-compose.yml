@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  cloud-config-app:
+    container_name: spring-cloud-config
+    image: shuricans/spring-cloud-config:lesson_9
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    entrypoint: /wait-for-it.sh www.google.com:80 -- /entrypoint.sh
+    networks:
+      default:
+
+networks:
+  default:
+    external:
+      name: geek-eshop

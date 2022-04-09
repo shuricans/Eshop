@@ -15,6 +15,11 @@
     <name>spring-eureka</name>
     <description>spring-eureka</description>
 
+    <properties>
+        <app.image.name>spring-eureka</app.image.name>
+        <app.image.tag>lesson_9</app.image.tag>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -33,6 +38,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <from>
+                        <image>adoptopenjdk/openjdk11:alpine-jre</image>
+                    </from>
+                    <to>
+                        <image>shuricans/${app.image.name}:${app.image.tag}</image>
+                    </to>
+                    <container>
+                        <ports>
+                            <port>8761</port>
+                        </ports>
+                        <format>OCI</format>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>
