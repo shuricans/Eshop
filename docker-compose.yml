@@ -5,7 +5,7 @@ services:
     image: postgres:alpine
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
       POSTGRES_PASSWORD: 123
     volumes:
@@ -29,7 +29,7 @@ services:
     image: shuricans/spring-cloud-config:lesson_9
     restart: unless-stopped
     ports:
-      - "8888:8888"
+      - "8888"
     networks:
       default:
 
