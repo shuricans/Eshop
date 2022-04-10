@@ -62,7 +62,7 @@
                     <extraDirectories>
                         <paths>
                             <path>
-                                <from>${basedir}/config-repo-prod</from>
+                                <from>${basedir}/config-repo</from>
                                 <into>/config-repo</into>
                             </path>
                         </paths>

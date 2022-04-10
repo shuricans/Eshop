@@ -80,8 +80,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "shop-frontend-app:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "shop-frontend-app:build:production"
             },
             "development": {
               "browserTarget": "shop-frontend-app:build:development"
