@@ -5,11 +5,11 @@ services:
     image: postgres:alpine
     restart: unless-stopped
     ports:
-      - "5432"
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: 123
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./../../db-data:/var/lib/postgresql/data
     networks:
       default:
 
@@ -33,23 +33,44 @@ services:
     networks:
       default:
 
+  eureka-app:
+    container_name: spring-eureka
+    image: shuricans/spring-eureka:lesson_9
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    networks:
+      default:
+
+  cloud-gateway:
+    container_name: spring-cloud-gateway
+    image: shuricans/spring-cloud-gateway:lesson_9
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_HOST: spring-eureka
+      EUREKA_PORT: 8761
+    networks:
+      default:
+
   picture-service-app:
     container_name: shop-picture-service-api-app
     image: shuricans/shop-picture-service-api-app:lesson_9
     restart: unless-stopped
     ports:
       - "8080"
-    depends_on:
-      - db
-      - cloud-config-app
     environment:
-      PROFILE: docker
+      EUREKA_HOST: spring-eureka
+      EUREKA_PORT: 8761
       CONFIG_HOST: spring-cloud-config
       CONFIG_PORT: 8888
       DB_HOST: db
       DB_PORT: 5432
+      GATEWAY_HOST: spring-cloud-gateway
+      GATEWAY_PORT: 8080
     volumes:
-      - ./storage:/storage
+      - ./../../storage:/storage
     networks:
       default:
 
@@ -59,16 +80,15 @@ services:
     restart: unless-stopped
     ports:
       - "8080"
-    depends_on:
-      - db
-      - cloud-config-app
-      - redis
     environment:
-      PROFILE: docker
+      EUREKA_HOST: spring-eureka
+      EUREKA_PORT: 8761
       CONFIG_HOST: spring-cloud-config
       CONFIG_PORT: 8888
       DB_HOST: db
       DB_PORT: 5432
+      GATEWAY_HOST: spring-cloud-gateway
+      GATEWAY_PORT: 8080
       REDIS_HOST: redis
       REDIS_PORT: 6379
     networks:
@@ -80,32 +100,17 @@ services:
     restart: unless-stopped
     ports:
       - "8080"
-    depends_on:
-      - db
-      - cloud-config-app
     environment:
-      PROFILE: docker
+      EUREKA_HOST: spring-eureka
+      EUREKA_PORT: 8761
       CONFIG_HOST: spring-cloud-config
       CONFIG_PORT: 8888
       DB_HOST: db
       DB_PORT: 5432
+      GATEWAY_HOST: spring-cloud-gateway
+      GATEWAY_PORT: 8080
     volumes:
-      - ./storage:/storage
-    networks:
-      default:
-
-  frontend-app:
-    container_name: shop-frontend-app
-    image: shuricans/shop-frontend-app:lesson_9
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-      - cloud-config-app
-      - admin-app
-      - backend-app
-      - picture-service-app
+      - ./../../storage:/storage
     networks:
       default:
 
