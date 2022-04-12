@@ -3,6 +3,9 @@ package ru.geekbrains.service;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.Order;
 import ru.geekbrains.persist.model.OrderLineItem;
@@ -30,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final CustomerMapper customerMapper;
     private final ProductMapper productMapper;
+
+    private final SimpMessagingTemplate template;
+    private final RabbitTemplate rabbitTemplate;
 
     @Transactional
     @Override
@@ -67,6 +73,8 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderLineItems(orderLineItems);
         orderRepository.save(order);
         cartService.removeAll();
+        rabbitTemplate.convertAndSend("order.exchange", "new_order",
+                new OrderStatus(order.getId(), order.getStatus().toString()));
     }
 
     @Override
@@ -94,5 +102,19 @@ public class OrderServiceImpl implements OrderService {
         return productService.findById(id)
                 .map(productMapper::toProduct)
                 .orElseThrow(() -> new RuntimeException("No product with id"));
+    }
+
+    @RabbitListener(queues = "processed.order.queue")
+    public void receiver(OrderStatus orderStatus) {
+        logger.info("New order status received id = {}, status = {}",
+                orderStatus.getOrderId(), orderStatus.getStatus());
+
+        orderRepository.findById(orderStatus.getOrderId())
+                .ifPresent(order -> {
+                    order.setStatus(Order.OrderStatus.valueOf(orderStatus.getStatus()));
+                    orderRepository.save(order);
+                });
+
+        template.convertAndSend("/order_out/order", orderStatus);
     }
 }

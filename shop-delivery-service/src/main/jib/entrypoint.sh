@@ -26,14 +26,16 @@ if [ -n "$CONFIG_HOST" ] && [ -n "$CONFIG_PORT" ]; then
   args="$args --spring.cloud.config.uri=$configUri"
 fi
 
-# Waiting db if exist.
-if [ -n "$DB_HOST" ] && [ -n "$DB_PORT" ]; then
-  /wait-for-service.sh "$DB_HOST" "$DB_PORT"
-fi
-
 # Waiting gateway service if exist.
 if [ -n "$GATEWAY_HOST" ] && [ -n "$GATEWAY_PORT" ]; then
   /wait-for-service.sh "$GATEWAY_HOST" "$GATEWAY_PORT"
+fi
+
+# Waiting RabbitMQ service if exist.
+if [ -n "$RABBITMQ_HOST" ] && [ -n "$RABBITMQ_PORT" ]; then
+  /wait-for-service.sh "$RABBITMQ_HOST" "$RABBITMQ_PORT"
+  args="$args --spring.rabbitmq.host=$RABBITMQ_HOST"
+  args="$args --spring.rabbitmq.port=$RABBITMQ_PORT"
 fi
 
 exec java -cp \

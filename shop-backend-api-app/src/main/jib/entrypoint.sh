@@ -5,7 +5,7 @@ set -e
 
 args=""
 
-# Waiting eureka service if exist.
+# Set specific profile for cloud-config service if exist.
 if [ -n "$PROFILE" ]; then
   args="$args --spring.profiles.active=$PROFILE"
 fi
@@ -40,6 +40,13 @@ fi
 # Waiting gateway service if exist.
 if [ -n "$GATEWAY_HOST" ] && [ -n "$GATEWAY_PORT" ]; then
   /wait-for-service.sh "$GATEWAY_HOST" "$GATEWAY_PORT"
+fi
+
+# Waiting RabbitMQ service if exist.
+if [ -n "$RABBITMQ_HOST" ] && [ -n "$RABBITMQ_PORT" ]; then
+  /wait-for-service.sh "$RABBITMQ_HOST" "$RABBITMQ_PORT"
+  args="$args --spring.rabbitmq.host=$RABBITMQ_HOST"
+  args="$args --spring.rabbitmq.port=$RABBITMQ_PORT"
 fi
 
 exec java -cp \

@@ -5,7 +5,7 @@ set -e
 
 args=""
 
-# Waiting eureka service if exist.
+# Set specific profile for cloud-config service if exist.
 if [ -n "$PROFILE" ]; then
   args="$args --spring.profiles.active=$PROFILE"
 fi

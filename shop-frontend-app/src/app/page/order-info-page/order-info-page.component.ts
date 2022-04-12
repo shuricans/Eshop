@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Order} from "../../model/order";
 import {OrderService} from "../../service/order.service";
 import {ProductService} from "../../service/product.service";
+import {OrderStatusService} from "../../service/order-status.service";
 
 @Component({
   selector: 'app-order-info-page',
@@ -16,11 +17,18 @@ export class OrderInfoPageComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private productService: ProductService,
+              private orderStatusService: OrderStatusService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.updateOrder();
+    this.orderStatusService.onMessage('/order_out/order')
+      .subscribe(msg => {
+        if (this.order.id === msg.orderId) {
+          this.order.status = msg.status;
+        }
+      });
   }
 
   updateOrder() {

@@ -16,7 +16,7 @@
 
     <properties>
         <app.image.name>spring-cloud-config</app.image.name>
-        <app.image.tag>lesson_9</app.image.tag>
+        <app.image.tag>lesson_10</app.image.tag>
     </properties>
 
     <dependencies>
