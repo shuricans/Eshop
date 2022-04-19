@@ -2,12 +2,12 @@ package ru.geekbrains.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.geekbrains.service.dto.ProductDto;
-import ru.geekbrains.persist.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.geekbrains.persist.model.Category;
 import ru.geekbrains.persist.model.Product;
-import ru.geekbrains.service.dto.ProductMapper;
-import ru.geekbrains.service.dto.ProductMapperImpl;
+import ru.geekbrains.persist.repository.ProductRepository;
+import ru.geekbrains.service.dto.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,21 +19,25 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
+@SpringBootTest(classes = {ProductMapperImpl.class, CategoryMapperImpl.class, BrandMapperImpl.class})
 public class ProductServiceTest {
 
-    private ProductService productService;
+    private ProductService underTest;
 
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductMapper productMapper;
+
     @BeforeEach
-    public void init() {
+    public void setUp() {
         productRepository = mock(ProductRepository.class);
-        ProductMapper productMapper = new ProductMapperImpl();
-        productService = new ProductServiceImpl(productRepository, productMapper);
+        underTest = new ProductServiceImpl(productRepository, productMapper);
     }
 
     @Test
-    public void testFindById() {
+    public void canFindById() {
         Category expectedCategory = new Category();
         expectedCategory.setId(1L);
         expectedCategory.setName("Category name");
@@ -48,7 +52,7 @@ public class ProductServiceTest {
         when(productRepository.findById(eq(expectedProduct.getId())))
                 .thenReturn(Optional.of(expectedProduct));
 
-        Optional<ProductDto> opt = productService.findById(expectedProduct.getId());
+        Optional<ProductDto> opt = underTest.findById(expectedProduct.getId());
 
         assertTrue(opt.isPresent());
         assertEquals(expectedProduct.getId(), opt.get().getId());

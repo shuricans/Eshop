@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: 123
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - "/c/Users/sasha/IdeaProjects/geek-eshop-02-15/db-data:/var/lib/postgresql/data"
     networks:
       default:
 
@@ -49,7 +49,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
     volumes:
-      - ./storage:/storage
+      - "/c/Users/sasha/IdeaProjects/geek-eshop-02-15/storage:/storage"
     networks:
       default:
 
@@ -94,7 +94,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
     volumes:
-      - ./storage:/storage
+      - "/c/Users/sasha/IdeaProjects/geek-eshop-02-15/storage:/storage"
     networks:
       default:
 

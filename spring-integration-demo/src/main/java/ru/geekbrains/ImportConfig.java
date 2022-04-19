@@ -1,6 +1,5 @@
 package ru.geekbrains;
 
-import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,6 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileReadingMessageSource;
 import org.springframework.integration.file.FileWritingMessageHandler;
-import org.springframework.integration.file.filters.SimplePatternFileListFilter;
 import org.springframework.integration.file.transformer.FileToStringTransformer;
 import org.springframework.integration.jpa.dsl.Jpa;
 import org.springframework.integration.jpa.dsl.JpaUpdatingOutboundEndpointSpec;
