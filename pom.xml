@@ -39,6 +39,7 @@
         <module>shop-picture-service-api-app</module>
         <module>shop-delivery-service</module>
         <module>spring-integration-demo</module>
+        <module>shop-ui-tests</module>
     </modules>
 
     <dependencyManagement>

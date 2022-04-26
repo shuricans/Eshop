@@ -32,6 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-test.properties")
 @AutoConfigureMockMvc
 @SpringBootTest
+@MockBean(RabbitTemplate.class)
+@MockBean(SimpMessagingTemplate.class)
 public class ProductControllerTest {
 
     @Autowired
@@ -45,12 +47,6 @@ public class ProductControllerTest {
 
     @Autowired
     private BrandRepository brandRepository;
-
-    @MockBean
-    private RabbitTemplate rabbitTemplate;
-
-    @MockBean
-    private SimpMessagingTemplate template;
 
     @BeforeEach
     void setUp() {
