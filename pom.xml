@@ -38,6 +38,7 @@
         <module>spring-cloud-gateway</module>
         <module>shop-picture-service-api-app</module>
         <module>shop-delivery-service</module>
+        <module>spring-integration-demo</module>
     </modules>
 
     <dependencyManagement>
