@@ -16,7 +16,7 @@
 
     <properties>
         <app.image.name>shop-admin-app</app.image.name>
-        <app.image.tag>lesson_9</app.image.tag>
+        <app.image.tag>lesson_10</app.image.tag>
     </properties>
 
     <dependencies>

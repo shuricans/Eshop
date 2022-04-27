@@ -26,7 +26,7 @@ services:
 
   cloud-config-app:
     container_name: spring-cloud-config
-    image: shuricans/spring-cloud-config:lesson_9
+    image: shuricans/spring-cloud-config:lesson_10
     restart: unless-stopped
     ports:
       - "8888"
@@ -35,7 +35,7 @@ services:
 
   picture-service-app:
     container_name: shop-picture-service-api-app
-    image: shuricans/shop-picture-service-api-app:lesson_9
+    image: shuricans/shop-picture-service-api-app:lesson_10
     restart: unless-stopped
     ports:
       - "8080"
@@ -55,7 +55,7 @@ services:
 
   backend-app:
     container_name: shop-backend-api-app
-    image: shuricans/shop-backend-api-app:lesson_9
+    image: shuricans/shop-backend-api-app:lesson_10
     restart: unless-stopped
     ports:
       - "8080"
@@ -63,6 +63,8 @@ services:
       - db
       - cloud-config-app
       - redis
+      - rabbitmq
+      - shop-delivery-service
     environment:
       PROFILE: docker
       CONFIG_HOST: spring-cloud-config
@@ -71,12 +73,14 @@ services:
       DB_PORT: 5432
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
     networks:
       default:
 
   admin-app:
     container_name: shop-admin-app
-    image: shuricans/shop-admin-app:lesson_9
+    image: shuricans/shop-admin-app:lesson_10
     restart: unless-stopped
     ports:
       - "8080"
@@ -96,7 +100,7 @@ services:
 
   frontend-app:
     container_name: shop-frontend-app
-    image: shuricans/shop-frontend-app:lesson_9
+    image: shuricans/shop-frontend-app:lesson_10
     restart: unless-stopped
     ports:
       - "8080:80"
@@ -106,6 +110,34 @@ services:
       - admin-app
       - backend-app
       - picture-service-app
+    networks:
+      default:
+
+  shop-delivery-service:
+    container_name: shop-delivery-service
+    image: shuricans/shop-delivery-service:lesson_10
+    restart: unless-stopped
+    ports:
+      - "8080"
+    depends_on:
+      - cloud-config-app
+      - rabbitmq
+    environment:
+      PROFILE: docker
+      CONFIG_HOST: spring-cloud-config
+      CONFIG_PORT: 8888
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    networks:
+      default:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: bitnami/rabbitmq:latest
+    restart: unless-stopped
+    ports:
+      - "5672"
+      - "15672:15672"
     networks:
       default:
 

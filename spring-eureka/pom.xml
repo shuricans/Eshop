@@ -17,7 +17,7 @@
 
     <properties>
         <app.image.name>spring-eureka</app.image.name>
-        <app.image.tag>lesson_9</app.image.tag>
+        <app.image.tag>lesson_10</app.image.tag>
     </properties>
 
     <dependencies>

@@ -14,11 +14,11 @@
       <tbody>
 
       <ng-template [ngIf]="orders && orders.length > 0" [ngIfElse]="emptyOrders">
-        <tr *ngFor="let order of orders" [routerLink]="['/order', order.id]">
-          <th scope="row">{{order.id}}</th>
-          <td>{{dateFormat(order.date)}}</td>
-          <td>${{order.price}}</td>
-          <td>
+        <tr *ngFor="let order of orders">
+          <th scope="row"  [routerLink]="['/order', order.id]">{{order.id}}</th>
+          <td  [routerLink]="['/order', order.id]">{{dateFormat(order.date)}}</td>
+          <td  [routerLink]="['/order', order.id]">${{order.price}}</td>
+          <td  [routerLink]="['/order', order.id]">
             <div class="alert p-1"
                  [ngClass]="setAlertClass(order.status)"
                  role="alert">

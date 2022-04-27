@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Order} from "../../model/order";
 import {OrderService} from "../../service/order.service";
+import {OrderStatusService} from "../../service/order-status.service";
 
 @Component({
   selector: 'app-order-page',
@@ -12,11 +13,19 @@ export class OrderPageComponent implements OnInit {
   orders: Order[] = [];
   isDataReady: boolean = false;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private orderStatusService: OrderStatusService) {
   }
 
   ngOnInit(): void {
     this.updateOrders();
+    this.orderStatusService.onMessage('/order_out/order')
+      .subscribe(msg => {
+        let updated = this.orders.find(order => order.id === msg.orderId);
+        if (updated) {
+          updated.status = msg.status;
+        }
+      });
   }
 
   updateOrders() {
