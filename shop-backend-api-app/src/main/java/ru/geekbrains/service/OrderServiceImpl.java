@@ -104,6 +104,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new RuntimeException("No product with id"));
     }
 
+    @Transactional
     @RabbitListener(queues = "processed.order.queue")
     public void receiver(OrderStatus orderStatus) {
         logger.info("New order status received id = {}, status = {}",
