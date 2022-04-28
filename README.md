@@ -129,6 +129,7 @@ See ya!
 ### Screenshots:
 ![image](https://user-images.githubusercontent.com/10568936/165842068-0ab5bfa7-4b9b-4d6a-bef6-785217594899.png)
 ![image](https://user-images.githubusercontent.com/10568936/165842157-3d4d2dcf-005c-4dad-8d16-a4d688c44f92.png)
+![image](https://user-images.githubusercontent.com/10568936/165842650-3cd997fa-b740-4a4b-99e2-b04bfd36b79d.png)
 ![image](https://user-images.githubusercontent.com/10568936/165842268-1959df93-3194-49f3-8633-33783fc58ccb.png)
 ![image](https://user-images.githubusercontent.com/10568936/165842414-c882b669-99c3-4ffc-834f-7182ed7e602b.png)
 ![image](https://user-images.githubusercontent.com/10568936/165842504-58c5339f-7925-438e-a37e-80f83c865d4f.png)
