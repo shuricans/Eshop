@@ -1,51 +1,51 @@
 # Welcome to the useless store!
 
-###Hi everyone!
+### Hi everyone!
 This is another study pet-project of eshop.  
 Course [gb.ru](https://gb.ru/) "Developing eshop, Spring Boot"    
 Teacher: [Alexey](https://github.com/usharik)
 
-###Many modules, many stuff. Short review.
+### Many modules, many stuff. Short review.
 
-1. ####shop-database
+1. shop-database
    > common persistence module
 * Spring Data JPA with Hibernate
 * [Postgresql](https://www.postgresql.org/)
 * [Liquibase](https://docs.liquibase.com/home.html) - version control for DB
-2. ####shop-picture-service-api-app
+2. shop-picture-service-api-app
    > REST API for pictures, uses **picture-service** module
-3. ####spring-eureka
+3. spring-eureka
    > [Eureka service](https://spring.io/guides/gs/service-registration-and-discovery/) - service registration and discovery
-4. ####spring-cloud-config
+4. spring-cloud-config
    > [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) for externalized configuration
-5. ####spring-cloud-gateway
+5. spring-cloud-gateway
    > [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway), reverse proxy & load balancing
-6. ####shop-admin-app
+6. shop-admin-app
 * Template engine - [Thymeleaf](https://www.thymeleaf.org/)
-7. ####shop-backend-api-app
+7. shop-backend-api-app
 * [Spring Session Data Redis](https://spring.io/projects/spring-session-data-redis) - session repository
 * [RabbitMQ](https://www.rabbitmq.com/) - message broker
 * [springdoc-openapi](https://springdoc.org/) - automate the generation of API documentation using spring boot projects, see Swagger-ui
 * [spring-boot-starter-websocket](https://spring.io/guides/gs/messaging-stomp-websocket/) for sends messages back and forth between a browser and a server
-8. ####shop-frontend-app
+8. shop-frontend-app
 * [Angular](https://angular.io/)
 * [Bootstrap](https://getbootstrap.com/)
 * [RxJS](https://rxjs.dev/guide/overview) - is a library for composing asynchronous and event-based programs by using observable sequences
 * [stompjs](https://github.com/stomp-js/stompjs) - his library provides a STOMP over WebSocket client for Web browser and node.js applications
 * [Font-Awesome](https://github.com/FortAwesome/Font-Awesome) - icon library and toolkit
 * [ngx-spinner](https://github.com/Napster2210/ngx-spinner) - A library with more than 50 different loading spinners
-9. ####shop-delivery-service
+9. shop-delivery-service
    > Example of a simple app for changing status of an order by [RabbitMQ](https://www.rabbitmq.com/)
-10. ####spring-integration-demo
-   > Example of a simple app for integration demonstration.
-   > Here we use [integration via files](https://docs.spring.io/spring-integration/reference/html/file.html), just add new Brands.
-11. ####shop-ui-tests
-   > Module for testing ui  
+10. spring-integration-demo
+    > Example of a simple app for integration demonstration.  
+    > Here we use [integration via files](https://docs.spring.io/spring-integration/reference/html/file.html), just add new Brands.
+11. shop-ui-tests
+    > Module for testing ui  
 * [Selenium](https://www.selenium.dev/) - automates browsers. That's it!
 * [Cucumber](https://cucumber.io/) - BDD testing
 * [webdrivermanager](https://github.com/bonigarcia/webdrivermanager)
 
-###Other common things:
+### Other common things:
 * [Spring Security](https://spring.io/projects/spring-security)
 * [MapStruct](https://mapstruct.org/) Java bean mappings, the easy way!
 * [Lombok](https://projectlombok.org/)
@@ -53,7 +53,7 @@ Teacher: [Alexey](https://github.com/usharik)
 * [Jib](https://github.com/GoogleContainerTools/jib) - Containerize java applications
 * [nginx](https://nginx.org/)
 
-###How run this project?
+### How run this project?
 ##### 1. First way - docker compose:
 > Here we won't use eureka & gateway.  
 > Firstly, we will use [nginx](https://nginx.org/) as reverse proxy.  
@@ -126,4 +126,9 @@ Write to me in [https://t.me/shuricans](https://t.me/shuricans)
 Make love, not war!  
 See ya!
 
-###Screenshots:
+### Screenshots:
+![image](https://user-images.githubusercontent.com/10568936/165842068-0ab5bfa7-4b9b-4d6a-bef6-785217594899.png)
+![image](https://user-images.githubusercontent.com/10568936/165842157-3d4d2dcf-005c-4dad-8d16-a4d688c44f92.png)
+![image](https://user-images.githubusercontent.com/10568936/165842268-1959df93-3194-49f3-8633-33783fc58ccb.png)
+![image](https://user-images.githubusercontent.com/10568936/165842414-c882b669-99c3-4ffc-834f-7182ed7e602b.png)
+![image](https://user-images.githubusercontent.com/10568936/165842504-58c5339f-7925-438e-a37e-80f83c865d4f.png)
