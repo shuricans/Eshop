@@ -1,4 +1,3 @@
-shop-admin-app/HELP.md
 target/
 !../.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -35,3 +34,4 @@ build/
 storage/
 shop-database/derby.log
 db-data/
+docker-test/
